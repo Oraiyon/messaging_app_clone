@@ -25,7 +25,7 @@ export const post_signup = [
   expressAsyncHandler(async (req, res) => {
     bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
       if (err) {
-        // create err middleware in app.js?
+        // Create err middleware in app.js?
         return next(err);
       } else {
         const user = new User({
@@ -34,7 +34,8 @@ export const post_signup = [
         });
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-          res.redirect("/form");
+          // Find way to send error messages back
+          res.redirect("/signup");
           return;
         }
         await user.save();
