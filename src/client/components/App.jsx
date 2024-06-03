@@ -13,7 +13,7 @@ function App() {
   }, []);
 
   const ListUsers = () => {
-    if (users.length) {
+    if (users && users.length) {
       return (
         <>
           {users.map((user, index) => (
