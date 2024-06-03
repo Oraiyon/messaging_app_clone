@@ -3,10 +3,10 @@ import "./stylesheets/index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import App from "./components/App";
+import Router from "./Router";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <Router />
   </React.StrictMode>
 );
