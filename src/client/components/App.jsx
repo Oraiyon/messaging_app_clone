@@ -17,7 +17,7 @@ function App() {
       return (
         <>
           {users.map((user, index) => (
-            <p key={index}>{user.name}</p>
+            <p key={index}>{user.username}</p>
           ))}
         </>
       );
