@@ -1,5 +1,32 @@
+import { useEffect, useState } from "react";
+
 function App() {
-  return <h1>Hello World!</h1>;
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:3000/api/users");
+      const data = await res.json();
+      setUsers(data);
+    };
+    fetchData();
+  }, []);
+
+  const ListUsers = () => {
+    if (users.length) {
+      return (
+        <>
+          {users.map((user, index) => (
+            <p key={index}>{user.name}</p>
+          ))}
+        </>
+      );
+    } else {
+      return <p>No users.</p>;
+    }
+  };
+
+  return <ListUsers />;
 }
 
 export default App;
