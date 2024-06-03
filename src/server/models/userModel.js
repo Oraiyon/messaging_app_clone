@@ -6,6 +6,6 @@ const UserSchema = mongoose.Schema({
   messages: { type: Array }
 });
 
-const UserModel = mongoose.model("users", UserSchema);
+const User = mongoose.model("users", UserSchema);
 
-export default UserModel;
+export default User;

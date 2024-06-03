@@ -1,9 +1,10 @@
 import expressAsyncHandler from "express-async-handler";
 import { body, validationResult } from "express-validator";
-import UserModel from "../models/userModel.js";
+import User from "../models/userModel.js";
 
-const helloWorld = (req, res) => {
-  res.json("Hello World");
-};
+const getUsers = expressAsyncHandler(async (req, res) => {
+  const users = await User.find().exec();
+  res.json(users);
+});
 
-export default helloWorld;
+export default getUsers;

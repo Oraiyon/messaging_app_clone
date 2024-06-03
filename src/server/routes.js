@@ -1,8 +1,8 @@
 import express from "express";
-import helloWorld from "./controllers/userController.js";
+import getUsers from "./controllers/userController.js";
 
 const router = express.Router();
 
-router.get("/", helloWorld);
+router.get("/api/users", getUsers);
 
 export default router;
