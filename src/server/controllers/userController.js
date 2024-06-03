@@ -16,6 +16,11 @@ export const post_signup = [
     .trim()
     .isLength({ min: 6 })
     .escape(),
+  body("confirmPassword", "Confirm password must match your password")
+    .trim()
+    .custom((value, { req }) => {
+      return value === req.body.password;
+    }),
   expressAsyncHandler(async (req, res) => {
     const user = new User({
       username: req.body.username,
