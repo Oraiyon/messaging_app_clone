@@ -3,12 +3,7 @@ import { body, validationResult } from "express-validator";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
-const get_users = expressAsyncHandler(async (req, res) => {
-  const users = await User.find().exec();
-  res.json(users);
-});
-
-export const post_signup = [
+const post_signup = [
   body("username", "Username must be at least 3 characters long.")
     .trim()
     .isLength({ min: 3 })
@@ -25,7 +20,6 @@ export const post_signup = [
   expressAsyncHandler(async (req, res) => {
     bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
       if (err) {
-        // Create err middleware in app.js?
         return next(err);
       } else {
         const user = new User({
@@ -45,4 +39,4 @@ export const post_signup = [
   })
 ];
 
-export default get_users;
+export default post_signup;

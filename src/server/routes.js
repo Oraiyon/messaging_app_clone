@@ -1,9 +1,7 @@
 import express from "express";
-import get_users, { post_signup } from "./controllers/userController.js";
+import post_signup from "./controllers/userController.js";
 
 const router = express.Router();
-
-router.get("/api/users", get_users);
 
 router.post("/signup", post_signup);
 
