@@ -40,9 +40,20 @@ const post_signup = [
   })
 ];
 
-export const post_login = passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "login"
-});
+export const post_login = [
+  passport.authenticate("local", { failureRedirect: "/login" }),
+  (req, res, next) => {
+    res.redirect(`/${req.user.username}/profile`);
+  }
+];
+
+export const logout = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};
 
 export default post_signup;
