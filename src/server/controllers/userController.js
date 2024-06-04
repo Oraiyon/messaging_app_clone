@@ -8,6 +8,7 @@ const post_signup = [
   body("username", "Username must be at least 3 characters long.")
     .trim()
     .isLength({ min: 3 })
+    .toLowerCase()
     .escape(),
   body("password", "Username must be at least 6 characters long")
     .trim()

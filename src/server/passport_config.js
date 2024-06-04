@@ -6,7 +6,8 @@ const initializePassport = (passport) => {
   passport.use(
     new Strategy(async (username, password, done) => {
       try {
-        const user = await User.findOne({ username }).exec();
+        const lowerCasedUsername = username.toLowerCase();
+        const user = await User.findOne({ username: lowerCasedUsername }).exec();
         if (!user) {
           return done(null, false, { message: "Incorrect username" });
         }
