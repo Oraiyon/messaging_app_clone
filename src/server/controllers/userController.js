@@ -24,6 +24,7 @@ const post_signup = [
       if (err) {
         return next(err);
       } else {
+        // See if username is already taken
         const user = new User({
           username: req.body.username,
           password: hashedPassword
