@@ -2,6 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import { body, validationResult } from "express-validator";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import passport from "passport";
 
 const post_signup = [
   body("username", "Username must be at least 3 characters long.")
@@ -33,10 +34,15 @@ const post_signup = [
           return;
         }
         await user.save();
-        res.redirect("/");
+        res.redirect("/login");
       }
     });
   })
 ];
+
+export const post_login = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "login"
+});
 
 export default post_signup;
