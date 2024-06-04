@@ -4,7 +4,9 @@ import styles from "../stylesheets/header.module.css";
 const Header = () => {
   return (
     <header>
-      <h1>Hello World</h1>
+      <h1>
+        <Link to={"/"}>Home</Link>
+      </h1>
       <div className={styles.header_buttons}>
         <button>
           <Link to={"/signup"} className={styles.link}>
