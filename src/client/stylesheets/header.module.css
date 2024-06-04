@@ -7,3 +7,7 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
+.header_buttons {
+  display: flex;
+}
