@@ -1,18 +1,29 @@
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import styles from "../stylesheets/signup.module.css";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [validUsername, setValidUsername] = useState(true);
+
+  const checkValidUsername = (e) => {
+    if (e.target.value.length > 0 && e.target.value.length < 3) {
+      setValidUsername(false);
+    } else {
+      setValidUsername(true);
+    }
+  };
+
   return (
     <>
       <Header />
       <form method="post" className={styles.signup_form}>
         <h2>Sign Up</h2>
         <div className={styles.form_container}>
-          <fieldset>
-            <legend>Username</legend>
+          <fieldset className={validUsername ? "" : styles.invalid_input}>
+            <legend className={validUsername ? "" : styles.invalid_input}>Username</legend>
             <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" />
+            <input type="text" name="username" id="username" onChange={checkValidUsername} />
           </fieldset>
           <fieldset>
             <legend>Password</legend>
