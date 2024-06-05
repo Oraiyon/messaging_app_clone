@@ -15,10 +15,9 @@ const SignUp = () => {
         <input type="password" name="confirmPassword" id="confirmPassword" />
         <button>Sign Up</button>
       </form>
-      <div className={styles.login}>
-        <p>Already have an account?</p>
-        <Link to={"/login"}>Login!</Link>
-      </div>
+      <p>
+        Already have an account? <Link to={"/login"}>Login!</Link>
+      </p>
     </>
   );
 };

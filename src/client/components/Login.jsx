@@ -13,10 +13,9 @@ const Login = () => {
         <input type="password" name="password" id="password" />
         <button>Login</button>
       </form>
-      <div className={styles.signup}>
-        <p>Don't have an account yet?</p>
-        <Link to={"/signup"}>Sign Up!</Link>
-      </div>
+      <p>
+        Don't have an account yet? <Link to={"/signup"}>Sign Up!</Link>
+      </p>
     </>
   );
 };
