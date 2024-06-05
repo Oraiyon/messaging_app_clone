@@ -24,13 +24,14 @@ const post_signup = [
       if (err) {
         return next(err);
       } else {
-        // See if username is already taken
+        const errors = validationResult(req);
         const user = new User({
           username: req.body.username,
           password: hashedPassword
         });
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
+        // Checks if username is already taken
+        const takenUsername = await User.findOne({ username: user.username }).exec();
+        if (!errors.isEmpty() || takenUsername) {
           // Find way to send error messages back
           res.redirect("/signup");
           return;
