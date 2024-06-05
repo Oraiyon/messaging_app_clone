@@ -7,6 +7,7 @@ const SignUp = () => {
     <>
       <Header />
       <form method="post" className={styles.signup_form}>
+        <h2>Sign Up</h2>
         <div className={styles.form_container}>
           <fieldset>
             <legend>Username</legend>

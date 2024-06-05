@@ -7,6 +7,7 @@ const Login = () => {
     <>
       <Header />
       <form method="post" className={styles.login_form}>
+        <h2>Login</h2>
         <div className={styles.form_container}>
           <fieldset>
             <legend>Username</legend>
