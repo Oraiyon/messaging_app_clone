@@ -58,4 +58,11 @@ export const logout = (req, res, next) => {
   });
 };
 
+export const get_profile = expressAsyncHandler(async (req, res, next) => {
+  if (req.user) {
+    const user = await User.findOne({ username: req.params.username }).exec();
+    res.json(user);
+  }
+});
+
 export default post_signup;
