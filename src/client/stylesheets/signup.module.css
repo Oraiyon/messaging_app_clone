@@ -6,9 +6,14 @@
 
 .form_container {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: max-content;
 }
 
 .form_container label {
-  padding-right: 4px;
+  display: none;
+}
+
+.form_container fieldset {
+  padding: 8px;
+  border-radius: 4px;
 }

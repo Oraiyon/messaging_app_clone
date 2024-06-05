@@ -8,12 +8,21 @@ const SignUp = () => {
       <Header />
       <form method="post" className={styles.signup_form}>
         <div className={styles.form_container}>
-          <label htmlFor="username">Username:</label>
-          <input type="text" name="username" id="username" />
-          <label htmlFor="password">Password:</label>
-          <input type="password" name="password" id="password" />
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input type="password" name="confirmPassword" id="confirmPassword" />
+          <fieldset>
+            <legend>Username</legend>
+            <label htmlFor="username">Username</label>
+            <input type="text" name="username" id="username" />
+          </fieldset>
+          <fieldset>
+            <legend>Password</legend>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="password" />
+          </fieldset>
+          <fieldset>
+            <legend>Confirm Password</legend>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" />
+          </fieldset>
         </div>
         <button>Sign Up</button>
         <p>

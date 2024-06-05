@@ -8,10 +8,16 @@ const Login = () => {
       <Header />
       <form method="post" className={styles.login_form}>
         <div className={styles.form_container}>
-          <label htmlFor="username">Username:</label>
-          <input type="text" name="username" id="username" />
-          <label htmlFor="password">Password:</label>
-          <input type="password" name="password" id="password" />
+          <fieldset>
+            <legend>Username</legend>
+            <label htmlFor="username">Username</label>
+            <input type="text" name="username" id="username" />
+          </fieldset>
+          <fieldset>
+            <legend>Password</legend>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="password" />
+          </fieldset>
         </div>
         <button>Login</button>
         <p>
