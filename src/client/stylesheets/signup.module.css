@@ -5,8 +5,10 @@
 }
 
 .form_container {
-  display: grid;
-  grid-template-columns: max-content;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 450px;
 }
 
 .form_container label {
@@ -31,4 +33,9 @@
 .password_warning,
 .confirm_password_warning {
   display: none;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
 }
