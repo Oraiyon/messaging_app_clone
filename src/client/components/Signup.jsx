@@ -20,7 +20,6 @@ const SignUp = () => {
       setValidUsername(false);
     } else {
       setValidUsername(true);
-      usernameWarning.current.style.display = "none";
     }
     setUsername(e.target.value);
   };
@@ -30,13 +29,14 @@ const SignUp = () => {
       setValidPassword(false);
     } else {
       setValidPassword(true);
-      passwordWarning.current.style.display = "none";
     }
-    if (!e.target.value) {
-      setValidConfirmPassword(true);
-      confirmPasswordWarning.current.style.display = "none";
-    } else if (confirmPassword && e.target.value !== confirmPassword) {
+    if (
+      (!e.target.value && confirmPassword) ||
+      (e.target.value !== confirmPassword && confirmPassword)
+    ) {
       setValidConfirmPassword(false);
+    } else if (!e.target.value || e.target.value === confirmPassword) {
+      setValidConfirmPassword(true);
     }
     setPassword(e.target.value);
   };
@@ -46,15 +46,11 @@ const SignUp = () => {
       setValidConfirmPassword(false);
     } else {
       setValidConfirmPassword(true);
-      confirmPasswordWarning.current.style.display = "none";
     }
     setConfirmPassword(e.target.value);
   };
 
   const checkFormInputs = (e) => {
-    usernameWarning.current.style.display = "none";
-    passwordWarning.current.style.display = "none";
-    confirmPasswordWarning.current.style.display = "none";
     if (!username || (username.length < 3 && password.length < 6)) {
       e.preventDefault();
       setValidUsername(false);
