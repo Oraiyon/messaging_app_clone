@@ -4,18 +4,18 @@ import styles from "../stylesheets/signup.module.css";
 import { useRef, useState } from "react";
 
 const SignUp = () => {
-  const [validUsername, setValidUsername] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
-  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
 
   const usernameWarning = useRef(null);
   const passwordWarning = useRef(null);
   const confirmPasswordWarning = useRef(null);
 
-  const checkValidUsername = (e) => {
+  const validateUsername = (e) => {
     if (e.target.value.length > 0 && e.target.value.length < 3) {
       setValidUsername(false);
     } else {
@@ -24,7 +24,7 @@ const SignUp = () => {
     setUsername(e.target.value);
   };
 
-  const checkValidPassword = (e) => {
+  const validatePassword = (e) => {
     if (e.target.value.length > 0 && e.target.value.length < 6) {
       setValidPassword(false);
     } else {
@@ -41,7 +41,7 @@ const SignUp = () => {
     setPassword(e.target.value);
   };
 
-  const checkValidConfirmPassword = (e) => {
+  const validateConfirmPassword = (e) => {
     if (password && e.target.value !== password) {
       setValidConfirmPassword(false);
     } else {
@@ -50,7 +50,7 @@ const SignUp = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const checkFormInputs = (e) => {
+  const validateSignUpInputs = (e) => {
     if (!username || (username.length < 3 && password.length < 6)) {
       e.preventDefault();
       setValidUsername(false);
@@ -76,13 +76,13 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      <form method="post" className={styles.signup_form} onSubmit={checkFormInputs}>
+      <form method="post" className={styles.signup_form} onSubmit={validateSignUpInputs}>
         <h2>Sign Up</h2>
         <div className={styles.form_container}>
           <fieldset className={validUsername ? "" : styles.invalid_input}>
             <legend className={validUsername ? "" : styles.invalid_input}>Username</legend>
             <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" onChange={checkValidUsername} />
+            <input type="text" name="username" id="username" onChange={validateUsername} />
             <p className={styles.username_warning} ref={usernameWarning}>
               Must be atleast 3 characters long
             </p>
@@ -90,7 +90,7 @@ const SignUp = () => {
           <fieldset className={validPassword ? "" : styles.invalid_input}>
             <legend className={validPassword ? "" : styles.invalid_input}>Password</legend>
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" onChange={checkValidPassword} />
+            <input type="password" name="password" id="password" onChange={validatePassword} />
             <p className={styles.password_warning} ref={passwordWarning}>
               Must be atleast 6 characters long
             </p>
@@ -104,7 +104,7 @@ const SignUp = () => {
               type="password"
               name="confirmPassword"
               id="confirmPassword"
-              onChange={checkValidConfirmPassword}
+              onChange={validateConfirmPassword}
             />
             <p className={styles.confirm_password_warning} ref={confirmPasswordWarning}>
               Must match your password
