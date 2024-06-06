@@ -7,15 +7,13 @@ const SignUp = () => {
   const [validUsername, setValidUsername] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
   const [validConfirmPassword, setValidConfirmPassword] = useState(true);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
 
   const usernameWarning = useRef(null);
   const passwordWarning = useRef(null);
   const confirmPasswordWarning = useRef(null);
-
-  // Use state instead?
-  const username = document.querySelector("#username");
-  const password = document.querySelector("#password");
-  const confirmPassword = document.querySelector("#confirmPassword");
 
   const checkValidUsername = (e) => {
     if (e.target.value.length > 0 && e.target.value.length < 3) {
@@ -24,6 +22,7 @@ const SignUp = () => {
       setValidUsername(true);
       usernameWarning.current.style.display = "none";
     }
+    setUsername(e.target.value);
   };
 
   const checkValidPassword = (e) => {
@@ -35,38 +34,43 @@ const SignUp = () => {
     }
     if (!e.target.value) {
       setValidConfirmPassword(true);
+      confirmPasswordWarning.current.style.display = "none";
+    } else if (confirmPassword && e.target.value !== confirmPassword) {
+      setValidConfirmPassword(false);
     }
+    setPassword(e.target.value);
   };
 
   const checkValidConfirmPassword = (e) => {
-    if (password && e.target.value !== password.value) {
+    if (password && e.target.value !== password) {
       setValidConfirmPassword(false);
     } else {
       setValidConfirmPassword(true);
       confirmPasswordWarning.current.style.display = "none";
     }
+    setConfirmPassword(e.target.value);
   };
 
   const checkFormInputs = (e) => {
     usernameWarning.current.style.display = "none";
     passwordWarning.current.style.display = "none";
     confirmPasswordWarning.current.style.display = "none";
-    if (username.value.length < 3 && password.value.length < 6) {
+    if (!username || (username.length < 3 && password.length < 6)) {
       e.preventDefault();
       setValidUsername(false);
       setValidPassword(false);
       usernameWarning.current.style.display = "block";
       passwordWarning.current.style.display = "block";
-    } else if (username.value.length < 3) {
+    } else if (!username || username.length < 3) {
       e.preventDefault();
       setValidUsername(false);
       usernameWarning.current.style.display = "block";
-    } else if (password.value.length < 6) {
+    } else if (!password || password.length < 6) {
       e.preventDefault();
       setValidPassword(false);
       passwordWarning.current.style.display = "block";
     }
-    if (password.value !== confirmPassword.value) {
+    if (!password || !confirmPassword || password !== confirmPassword) {
       e.preventDefault();
       setValidConfirmPassword(false);
       confirmPasswordWarning.current.style.display = "block";
