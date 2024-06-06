@@ -26,3 +26,9 @@
 .form_container legend {
   border: 0;
 }
+
+.username_warning,
+.password_warning,
+.confirm_password_warning {
+  display: none;
+}

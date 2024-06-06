@@ -1,17 +1,28 @@
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import styles from "../stylesheets/signup.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const SignUp = () => {
   const [validUsername, setValidUsername] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
+
+  const usernameWarning = useRef(null);
+  const passwordWarning = useRef(null);
+  const confirmPasswordWarning = useRef(null);
+
+  // Use state instead?
+  const username = document.querySelector("#username");
+  const password = document.querySelector("#password");
+  const confirmPassword = document.querySelector("#confirmPassword");
 
   const checkValidUsername = (e) => {
     if (e.target.value.length > 0 && e.target.value.length < 3) {
       setValidUsername(false);
     } else {
       setValidUsername(true);
+      usernameWarning.current.style.display = "none";
     }
   };
 
@@ -20,29 +31,84 @@ const SignUp = () => {
       setValidPassword(false);
     } else {
       setValidPassword(true);
+      passwordWarning.current.style.display = "none";
+    }
+    if (!e.target.value) {
+      setValidConfirmPassword(true);
+    }
+  };
+
+  const checkValidConfirmPassword = (e) => {
+    if (password && e.target.value !== password.value) {
+      setValidConfirmPassword(false);
+    } else {
+      setValidConfirmPassword(true);
+      confirmPasswordWarning.current.style.display = "none";
+    }
+  };
+
+  const checkFormInputs = (e) => {
+    usernameWarning.current.style.display = "none";
+    passwordWarning.current.style.display = "none";
+    confirmPasswordWarning.current.style.display = "none";
+    if (username.value.length < 3 && password.value.length < 6) {
+      e.preventDefault();
+      setValidUsername(false);
+      setValidPassword(false);
+      usernameWarning.current.style.display = "block";
+      passwordWarning.current.style.display = "block";
+    } else if (username.value.length < 3) {
+      e.preventDefault();
+      setValidUsername(false);
+      usernameWarning.current.style.display = "block";
+    } else if (password.value.length < 6) {
+      e.preventDefault();
+      setValidPassword(false);
+      passwordWarning.current.style.display = "block";
+    }
+    if (password.value !== confirmPassword.value) {
+      e.preventDefault();
+      setValidConfirmPassword(false);
+      confirmPasswordWarning.current.style.display = "block";
     }
   };
 
   return (
     <>
       <Header />
-      <form method="post" className={styles.signup_form}>
+      <form method="post" className={styles.signup_form} onSubmit={checkFormInputs}>
         <h2>Sign Up</h2>
         <div className={styles.form_container}>
           <fieldset className={validUsername ? "" : styles.invalid_input}>
             <legend className={validUsername ? "" : styles.invalid_input}>Username</legend>
             <label htmlFor="username">Username</label>
             <input type="text" name="username" id="username" onChange={checkValidUsername} />
+            <p className={styles.username_warning} ref={usernameWarning}>
+              Must be atleast 3 characters long
+            </p>
           </fieldset>
           <fieldset className={validPassword ? "" : styles.invalid_input}>
             <legend className={validPassword ? "" : styles.invalid_input}>Password</legend>
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" onChange={checkValidPassword} />
+            <p className={styles.password_warning} ref={passwordWarning}>
+              Must be atleast 6 characters long
+            </p>
           </fieldset>
-          <fieldset>
-            <legend>Confirm Password</legend>
+          <fieldset className={validConfirmPassword ? "" : styles.invalid_input}>
+            <legend className={validConfirmPassword ? "" : styles.invalid_input}>
+              Confirm Password
+            </legend>
             <label htmlFor="confirmPassword">Confirm Password</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" />
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              onChange={checkValidConfirmPassword}
+            />
+            <p className={styles.confirm_password_warning} ref={confirmPasswordWarning}>
+              Must match your password
+            </p>
           </fieldset>
         </div>
         <button>Sign Up</button>
