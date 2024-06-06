@@ -5,12 +5,21 @@ import { useState } from "react";
 
 const SignUp = () => {
   const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
 
   const checkValidUsername = (e) => {
     if (e.target.value.length > 0 && e.target.value.length < 3) {
       setValidUsername(false);
     } else {
       setValidUsername(true);
+    }
+  };
+
+  const checkValidPassword = (e) => {
+    if (e.target.value.length > 0 && e.target.value.length < 6) {
+      setValidPassword(false);
+    } else {
+      setValidPassword(true);
     }
   };
 
@@ -25,10 +34,10 @@ const SignUp = () => {
             <label htmlFor="username">Username</label>
             <input type="text" name="username" id="username" onChange={checkValidUsername} />
           </fieldset>
-          <fieldset>
-            <legend>Password</legend>
+          <fieldset className={validPassword ? "" : styles.invalid_input}>
+            <legend className={validPassword ? "" : styles.invalid_input}>Password</legend>
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" />
+            <input type="password" name="password" id="password" onChange={checkValidPassword} />
           </fieldset>
           <fieldset>
             <legend>Confirm Password</legend>
