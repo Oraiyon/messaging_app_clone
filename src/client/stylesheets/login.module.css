@@ -20,6 +20,16 @@
   border-radius: 4px;
 }
 
+.invalid_input {
+  border: 2px solid red;
+  color: red;
+}
+
+.username_warning,
+.password_warning {
+  display: none;
+}
+
 input[type="text"],
 input[type="password"] {
   width: 100%;
