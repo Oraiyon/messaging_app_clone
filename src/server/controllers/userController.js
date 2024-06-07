@@ -43,12 +43,7 @@ const post_signup = [
   })
 ];
 
-export const post_login = [
-  passport.authenticate("local", { failureRedirect: "/login" }),
-  (req, res, next) => {
-    res.redirect(`/${req.user.username}/profile`);
-  }
-];
+export const post_login = passport.authenticate("local", { failureRedirect: "/login" });
 
 export const logout = (req, res, next) => {
   req.logout((err) => {
@@ -64,6 +59,11 @@ export const get_profile = expressAsyncHandler(async (req, res, next) => {
     const user = await User.findOne({ username: req.params.username }).exec();
     res.json(user);
   }
+});
+
+export const get_check_login_user = expressAsyncHandler(async (req, res, next) => {
+  const user = await User.findOne({ username: req.params.username }).exec();
+  res.json(user);
 });
 
 export default post_signup;
