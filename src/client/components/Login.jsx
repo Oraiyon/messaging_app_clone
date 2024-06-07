@@ -14,20 +14,20 @@ const Login = () => {
 
   // Find way to say if user is not found in database
   const validateLoginInputs = (e) => {
-    if (!username && !password) {
+    if (!username || !password) {
       e.preventDefault();
-      setValidUsername(false);
-      setValidPassword(false);
-      usernameWarning.current.style.display = "block";
-      passwordWarning.current.style.display = "block";
-    } else if (!username) {
-      e.preventDefault();
-      setValidUsername(false);
-      usernameWarning.current.style.display = "block";
-    } else if (!password) {
-      e.preventDefault();
-      setValidPassword(false);
-      passwordWarning.current.style.display = "block";
+      if (!username && !password) {
+        setValidUsername(false);
+        setValidPassword(false);
+        usernameWarning.current.style.display = "block";
+        passwordWarning.current.style.display = "block";
+      } else if (!username) {
+        setValidUsername(false);
+        usernameWarning.current.style.display = "block";
+      } else if (!password) {
+        setValidPassword(false);
+        passwordWarning.current.style.display = "block";
+      }
     }
   };
 

@@ -51,25 +51,24 @@ const SignUp = () => {
   };
 
   const validateSignUpInputs = (e) => {
-    if (!username || (username.length < 3 && password.length < 6)) {
+    if (!username || !password || !confirmPassword) {
       e.preventDefault();
-      setValidUsername(false);
-      setValidPassword(false);
-      usernameWarning.current.style.display = "block";
-      passwordWarning.current.style.display = "block";
-    } else if (!username || username.length < 3) {
-      e.preventDefault();
-      setValidUsername(false);
-      usernameWarning.current.style.display = "block";
-    } else if (!password || password.length < 6) {
-      e.preventDefault();
-      setValidPassword(false);
-      passwordWarning.current.style.display = "block";
-    }
-    if (!password || !confirmPassword || password !== confirmPassword) {
-      e.preventDefault();
-      setValidConfirmPassword(false);
-      confirmPasswordWarning.current.style.display = "block";
+      if (!username || (username.length < 3 && password.length < 6)) {
+        setValidUsername(false);
+        setValidPassword(false);
+        usernameWarning.current.style.display = "block";
+        passwordWarning.current.style.display = "block";
+      } else if (!username || username.length < 3) {
+        setValidUsername(false);
+        usernameWarning.current.style.display = "block";
+      } else if (!password || password.length < 6) {
+        setValidPassword(false);
+        passwordWarning.current.style.display = "block";
+      }
+      if (!password || !confirmPassword || password !== confirmPassword) {
+        setValidConfirmPassword(false);
+        confirmPasswordWarning.current.style.display = "block";
+      }
     }
   };
 
