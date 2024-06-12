@@ -37,6 +37,7 @@ const Login = () => {
           },
           body: JSON.stringify({ username, password })
         });
+        // res defaults to true even if json is false
         const res = true || (await fetchUser.json());
         if (!res) {
           setValidUsername(false);
