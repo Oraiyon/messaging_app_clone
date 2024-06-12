@@ -48,19 +48,20 @@ export const post_login = [
   expressAsyncHandler(async (req, res, next) => {
     const user = await User.findOne({ username: req.body.username }).exec();
     if (!user) {
-      console.log("USER");
       res.json(user);
       return;
     }
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) {
-      console.log("PASS");
       res.json(match);
       return;
     }
     next();
   }),
-  passport.authenticate("local")
+  passport.authenticate("local"),
+  (req, res, next) => {
+    res.json(true);
+  }
 ];
 
 export const logout = (req, res, next) => {
