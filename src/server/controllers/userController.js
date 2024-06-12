@@ -43,7 +43,25 @@ const post_signup = [
   })
 ];
 
-export const post_login = passport.authenticate("local", { failureRedirect: "/login" });
+// Add loggedIn to User model?
+export const post_login = [
+  expressAsyncHandler(async (req, res, next) => {
+    const user = await User.findOne({ username: req.body.username }).exec();
+    if (!user) {
+      console.log("USER");
+      res.json(user);
+      return;
+    }
+    const match = await bcrypt.compare(req.body.password, user.password);
+    if (!match) {
+      console.log("PASS");
+      res.json(match);
+      return;
+    }
+    next();
+  }),
+  passport.authenticate("local")
+];
 
 export const logout = (req, res, next) => {
   req.logout((err) => {
@@ -55,15 +73,11 @@ export const logout = (req, res, next) => {
 };
 
 export const get_profile = expressAsyncHandler(async (req, res, next) => {
+  // if user.loggedIn?
   if (req.user) {
     const user = await User.findOne({ username: req.params.username }).exec();
     res.json(user);
   }
-});
-
-export const get_check_login_user = expressAsyncHandler(async (req, res, next) => {
-  const user = await User.findOne({ username: req.params.username }).exec();
-  res.json(user);
 });
 
 export default post_signup;

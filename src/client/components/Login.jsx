@@ -11,22 +11,43 @@ const Login = () => {
 
   const usernameWarning = useRef(null);
   const passwordWarning = useRef(null);
+  const wrongUsernameOrPassword = useRef(null);
 
   // Find way to say if user is not found in database
-  const validateLoginInputs = (e) => {
-    if (!username || !password) {
-      e.preventDefault();
-      if (!username && !password) {
-        setValidUsername(false);
-        setValidPassword(false);
-        usernameWarning.current.style.display = "block";
-        passwordWarning.current.style.display = "block";
-      } else if (!username) {
-        setValidUsername(false);
-        usernameWarning.current.style.display = "block";
-      } else if (!password) {
-        setValidPassword(false);
-        passwordWarning.current.style.display = "block";
+  const validateLoginInputs = async (e) => {
+    e.preventDefault();
+    // Unnecessary checks?
+    if (!username && !password) {
+      setValidUsername(false);
+      setValidPassword(false);
+      usernameWarning.current.style.display = "block";
+      passwordWarning.current.style.display = "block";
+    } else if (!username) {
+      setValidUsername(false);
+      usernameWarning.current.style.display = "block";
+    } else if (!password) {
+      setValidPassword(false);
+      passwordWarning.current.style.display = "block";
+    } else {
+      try {
+        const fetchUser = await fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ username, password })
+        });
+        const res = true || (await fetchUser.json());
+        if (!res) {
+          setValidUsername(false);
+          setValidPassword(false);
+          wrongUsernameOrPassword.current.style.display = "block";
+          return;
+        }
+        // fetch doesn't allow redirects from server
+        window.location.href = `/${username}/profile`;
+      } catch (error) {
+        console.log(error);
       }
     }
   };
@@ -63,6 +84,9 @@ const Login = () => {
               Invalid password
             </p>
           </fieldset>
+          <p className={styles.wrongUsernameOrPassword} ref={wrongUsernameOrPassword}>
+            Wrong username or password
+          </p>
         </div>
         <button>Login</button>
         <p>

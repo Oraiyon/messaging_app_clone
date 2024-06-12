@@ -34,3 +34,8 @@ input[type="text"],
 input[type="password"] {
   width: 100%;
 }
+
+.wrongUsernameOrPassword {
+  display: none;
+  color: red;
+}
