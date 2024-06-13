@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.friends_list {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  max-width: 250px;
+}
+
+.messages {
+  width: 100%;
+  border: 1px solid blue;
+}
+
+form {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
