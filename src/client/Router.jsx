@@ -1,5 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import App from "./components/App";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 import SignUp from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
@@ -9,7 +8,7 @@ const Router = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <App />
+      element: <Navigate to=":username/profile" />
     },
     {
       path: "signup",
