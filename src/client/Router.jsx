@@ -3,6 +3,7 @@ import App from "./components/App";
 import SignUp from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
+import Messages from "./components/Messsages";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -11,16 +12,22 @@ const Router = () => {
       element: <App />
     },
     {
-      path: "/signup",
+      path: "signup",
       element: <SignUp />
     },
     {
-      path: "/login",
+      path: "login",
       element: <Login />
     },
     {
-      path: "/:username/profile",
-      element: <Profile />
+      path: ":username/profile",
+      element: <Profile />,
+      children: [
+        {
+          path: "messages",
+          element: <Messages />
+        }
+      ]
     }
   ]);
 
