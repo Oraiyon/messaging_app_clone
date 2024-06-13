@@ -6,8 +6,6 @@
 .friends_list {
   display: flex;
   flex-direction: column;
-  width: 25%;
-  max-width: 250px;
 }
 
 .messages {
@@ -19,4 +17,12 @@ form {
   height: 100%;
   display: flex;
   align-items: flex-end;
+}
+
+.friends {
+  width: 30%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
