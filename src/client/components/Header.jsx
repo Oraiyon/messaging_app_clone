@@ -6,13 +6,19 @@ const Header = (props) => {
   // Do you even need it?
   return (
     <header>
-      <h1>
-        <Link to={"/"}>Home</Link>
-      </h1>
       {props.loggedIn ? (
-        <button>
-          <a href="/logout">Logout</a>
-        </button>
+        <>
+          <div className={styles.account_links}>
+            <div>
+              <Link to={`/${props.username}/profile/messages`}>Messages</Link>
+              <Link>Profile</Link>
+              <Link>Settings</Link>
+            </div>
+            <button>
+              <a href="/logout">Logout</a>
+            </button>
+          </div>
+        </>
       ) : (
         <div className={styles.header_buttons}>
           <button>

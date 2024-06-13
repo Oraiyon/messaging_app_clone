@@ -11,3 +11,9 @@ header {
 .header_buttons {
   display: flex;
 }
+
+.account_links {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
