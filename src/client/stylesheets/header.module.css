@@ -17,3 +17,8 @@ header {
   display: flex;
   justify-content: space-between;
 }
+
+.account_links > div {
+  display: flex;
+  gap: 4px;
+}
