@@ -14,6 +14,6 @@ router.get("/logout", logout);
 router.post("/:username/profile", post_login);
 
 // Gets user's profile information
-router.get("/api/:username/profile", get_profile);
+router.get("/api/:username/profile/messages", get_profile);
 
 export default router;
