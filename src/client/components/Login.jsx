@@ -12,6 +12,7 @@ const Login = () => {
   const usernameWarning = useRef(null);
   const passwordWarning = useRef(null);
   const wrongUsernameOrPassword = useRef(null);
+  const passwordInput = useRef(null);
 
   // Find way to say if user is not found in database
   const validateLoginInputs = async (e) => {
@@ -52,6 +53,14 @@ const Login = () => {
     }
   };
 
+  const showPassword = () => {
+    if (passwordInput.current.type === "password") {
+      passwordInput.current.type = "text";
+    } else {
+      passwordInput.current.type = "password";
+    }
+  };
+
   return (
     <>
       <Header />
@@ -74,12 +83,25 @@ const Login = () => {
           <fieldset className={validPassword ? "" : styles.invalid_input}>
             <legend>Password</legend>
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className={styles.password_inputs}>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                ref={passwordInput}
+              />
+              <div>
+                <p>Show password</p>
+                <label htmlFor="show_password"></label>
+                <input
+                  type="checkbox"
+                  name="show_password"
+                  id="show_password"
+                  onClick={showPassword}
+                />
+              </div>
+            </div>
             <p className={styles.password_warning} ref={passwordWarning}>
               Invalid password
             </p>

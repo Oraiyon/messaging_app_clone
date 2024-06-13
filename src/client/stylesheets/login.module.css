@@ -39,3 +39,17 @@ input[type="password"] {
   display: none;
   color: red;
 }
+
+.password_inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.password_inputs > div {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  color: black;
+}
