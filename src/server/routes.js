@@ -10,7 +10,7 @@ router.post("/signup", post_signup);
 router.post("/login", post_login);
 router.get("/logout", logout);
 
-// Change? If user is not logged in cannot access a user profile
+// If user is not logged in cannot access a user profile
 router.post("/:username/profile", post_login);
 
 // Gets user's profile information

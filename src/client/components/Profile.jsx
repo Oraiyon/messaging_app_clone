@@ -9,7 +9,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // /:username/profile
+        // /:username/profile/messages
         const res = await fetch(`/api${window.location.pathname}`);
         const data = await res.json();
         setUser(data);
