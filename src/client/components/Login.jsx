@@ -42,6 +42,8 @@ const Login = () => {
         if (!res) {
           setValidUsername(false);
           setValidPassword(false);
+          usernameWarning.current.style.display = "none";
+          passwordWarning.current.style.display = "none";
           wrongUsernameOrPassword.current.style.display = "block";
           return;
         }
@@ -77,7 +79,7 @@ const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
             <p className={styles.username_warning} ref={usernameWarning}>
-              Invalid username
+              Enter a username
             </p>
           </fieldset>
           <fieldset className={validPassword ? "" : styles.invalid_input}>
@@ -103,7 +105,7 @@ const Login = () => {
               </div>
             </div>
             <p className={styles.password_warning} ref={passwordWarning}>
-              Invalid password
+              Enter a password
             </p>
           </fieldset>
           <p className={styles.wrongUsernameOrPassword} ref={wrongUsernameOrPassword}>
