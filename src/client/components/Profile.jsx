@@ -28,7 +28,7 @@ const Profile = () => {
   return (
     <>
       <Header loggedIn={true} username={user.username} />
-      <FindUser />
+      <FindUser user={user} />
       <Outlet context={user} />
     </>
   );
