@@ -4,6 +4,16 @@ import styles from "../stylesheets/header.module.css";
 const Header = (props) => {
   // Change props.loggedIn to state?
   // Do you even need it?
+
+  const displayModal = () => {
+    const modal = document.querySelector(".modal");
+    if (!modal.style.display || modal.style.display === "none") {
+      modal.style.display = "flex";
+    } else {
+      modal.style.display = "none";
+    }
+  };
+
   return (
     <header>
       {props.loggedIn ? (
@@ -13,6 +23,7 @@ const Header = (props) => {
               <Link to={`/${props.username}/profile/messages`}>Messages</Link>
               <Link>Profile</Link>
               <Link>Settings</Link>
+              <button onClick={displayModal}>Find user</button>
             </div>
             <button>
               <a href="/logout">Logout</a>
