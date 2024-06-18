@@ -10,13 +10,15 @@ const Messages = () => {
         <div className={styles.friends_list}>
           {user.friends.length ? <h1>HELLO WORLD</h1> : <p>No friends...</p>}
         </div>
-        <label htmlFor="friend_search"></label>
-        <input
-          type="text"
-          name="friend_search"
-          className={styles.friend_search}
-          id="friend_search"
-        />
+        <form action="" method="post">
+          <label htmlFor="friend_search"></label>
+          <input
+            type="text"
+            name="friend_search"
+            className={styles.friend_search}
+            id="friend_search"
+          />
+        </form>
       </div>
 
       <div className={styles.messages}>
