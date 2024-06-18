@@ -16,4 +16,7 @@ router.post("/:username/profile", post_login);
 // Gets user's profile information
 router.get("/api/:username/profile/messages", get_profile);
 
+// Searches other user's info for becoming friends
+router.get("/api/search/:username", get_profile);
+
 export default router;
