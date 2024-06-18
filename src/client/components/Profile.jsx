@@ -6,6 +6,7 @@ import FindUser from "./FindUser";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const [searchedUser, setSearchedUser] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,8 +28,8 @@ const Profile = () => {
 
   return (
     <>
-      <Header loggedIn={true} username={user.username} />
-      <FindUser user={user} />
+      <Header loggedIn={true} username={user.username} setSearchedUser={setSearchedUser} />
+      <FindUser user={user} searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
       <Outlet context={user} />
     </>
   );

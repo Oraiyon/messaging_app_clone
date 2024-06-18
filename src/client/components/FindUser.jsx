@@ -2,8 +2,6 @@ import { useRef, useState } from "react";
 import styles from "../stylesheets/findUser.module.css";
 
 const FindUser = (props) => {
-  const [searchedUser, setSearchedUser] = useState(null);
-
   const userSearchBar = useRef();
 
   const getUser = async (e) => {
@@ -13,7 +11,7 @@ const FindUser = (props) => {
     }
     const fetchUser = await fetch(`/api/search/${userSearchBar.current.value}`);
     const res = await fetchUser.json();
-    setSearchedUser(res);
+    props.setSearchedUser(res);
     userSearchBar.current.value = "";
   };
 
@@ -31,7 +29,7 @@ const FindUser = (props) => {
           />
           <button onClick={getUser}>Search</button>
         </div>
-        {searchedUser ? <p>{searchedUser.username}</p> : ""}
+        {props.searchedUser ? <p>{props.searchedUser.username}</p> : ""}
       </div>
     </form>
   );

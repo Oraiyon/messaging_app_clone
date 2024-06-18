@@ -6,6 +6,7 @@ const Header = (props) => {
   // Do you even need it?
 
   const displayModal = () => {
+    props.setSearchedUser(null);
     const modal = document.querySelector(".modal");
     if (!modal.style.display || modal.style.display === "none") {
       modal.style.display = "flex";
