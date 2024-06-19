@@ -5,14 +5,31 @@ const Header = (props) => {
   // Change props.loggedIn to state?
   // Do you even need it?
 
-  const displayModal = () => {
-    props.setSearchedUser(null);
-    const modal = document.querySelector(".modal");
+  const modalDisplaySetter = (modal) => {
     if (!modal.style.display || modal.style.display === "none") {
       modal.style.display = "flex";
     } else {
       modal.style.display = "none";
     }
+  };
+
+  const displaySearch = () => {
+    props.setSearchedUser(null);
+    const searchModal = document.querySelector(".modal");
+    const friendRequestModal = document.querySelector(".friend_requests");
+    if (friendRequestModal.style.display === "flex") {
+      friendRequestModal.style.display = "none";
+    }
+    modalDisplaySetter(searchModal);
+  };
+
+  const displayFriendRequests = () => {
+    const searchModal = document.querySelector(".modal");
+    const friendRequestModal = document.querySelector(".friend_requests");
+    if (searchModal.style.display === "flex") {
+      searchModal.style.display = "none";
+    }
+    modalDisplaySetter(friendRequestModal);
   };
 
   return (
@@ -21,14 +38,17 @@ const Header = (props) => {
         <>
           <div className={styles.account_links}>
             <div>
-              <Link to={`/${props.username}/profile/messages`}>Messages</Link>
+              <Link to={`/${props.user.username}/profile/messages`}>Messages</Link>
               <Link>Profile</Link>
               <Link>Settings</Link>
-              <button onClick={displayModal}>Find user</button>
+              <button onClick={displaySearch}>Find user</button>
             </div>
-            <button>
-              <a href="/logout">Logout</a>
-            </button>
+            <div>
+              <button onClick={displayFriendRequests}>Friend Requests</button>
+              <button>
+                <a href="/logout">Logout</a>
+              </button>
+            </div>
           </div>
         </>
       ) : (
