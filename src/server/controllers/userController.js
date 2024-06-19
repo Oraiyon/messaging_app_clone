@@ -86,11 +86,12 @@ export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next)
     User.findOne({ username: req.params.sender }).exec(),
     User.findOne({ username: req.params.receiver }).exec()
   ]);
-  for (let i = 0; i < sender.friendRequests.length; i++) {
-    if (sender.friendRequests[i].receiver === receiver.username) {
+  for (const request of sender.friendRequests) {
+    if (request.receiver === receiver.username) {
       return;
     }
   }
+  // No need for friend field. If there is a request, they are not friends
   sender.friendRequests = [
     ...sender.friendRequests,
     {
