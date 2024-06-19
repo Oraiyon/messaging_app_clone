@@ -18,3 +18,9 @@
 .modal_inputs {
   display: flex;
 }
+
+.send_request {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

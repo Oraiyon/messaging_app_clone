@@ -15,9 +15,19 @@ const FindUserModal = (props) => {
     userSearchBar.current.value = "";
   };
 
-  const SendFriendRequest = () => {
+  const sendFriendRequest = (e) => {
+    e.preventDefault();
+    console.log("HELLO");
+  };
+
+  const UserSearchInfo = () => {
     if (props.searchedUser) {
-      return <div>{props.searchedUser.username}</div>;
+      return (
+        <div className={styles.send_request}>
+          <p>{props.searchedUser.username}</p>
+          <button onClick={sendFriendRequest}>Send Request</button>
+        </div>
+      );
     }
   };
 
@@ -35,7 +45,7 @@ const FindUserModal = (props) => {
           />
           <button onClick={getUser}>Search</button>
         </div>
-        <SendFriendRequest />
+        <UserSearchInfo />
       </div>
     </form>
   );

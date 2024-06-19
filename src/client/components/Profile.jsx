@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Login from "./Login";
 import { Outlet } from "react-router-dom";
-import FindUser from "./FindUser";
+import FindUserModal from "./FindUserModal";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -29,7 +29,7 @@ const Profile = () => {
   return (
     <>
       <Header loggedIn={true} username={user.username} setSearchedUser={setSearchedUser} />
-      <FindUser user={user} searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
+      <FindUserModal user={user} searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
       <Outlet context={user} />
     </>
   );
