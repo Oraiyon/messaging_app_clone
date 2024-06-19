@@ -76,9 +76,39 @@ export const logout = (req, res, next) => {
 export const get_profile = expressAsyncHandler(async (req, res, next) => {
   // if user.loggedIn?
   if (req.user) {
-    const user = await User.findOne({ username: req.params.username }).exec();
+    const user = await User.findOne({ username: req.params.username }, { password: 0 }).exec();
     res.json(user);
   }
+});
+
+export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next) => {
+  const [sender, receiver] = await Promise.all([
+    User.findOne({ username: req.params.sender }).exec(),
+    User.findOne({ username: req.params.receiver }).exec()
+  ]);
+  for (let i = 0; i < sender.friendRequests.length; i++) {
+    if (sender.friendRequests[i].receiver === receiver.username) {
+      return;
+    }
+  }
+  sender.friendRequests = [
+    ...sender.friendRequests,
+    {
+      sender: sender.username,
+      receiver: receiver.username,
+      friend: false
+    }
+  ];
+  receiver.friendRequests = [
+    ...receiver.friendRequests,
+    {
+      sender: sender.username,
+      receiver: receiver.username,
+      friend: false
+    }
+  ];
+  await sender.save();
+  await receiver.save();
 });
 
 export default post_signup;
