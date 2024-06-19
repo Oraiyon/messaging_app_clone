@@ -5,6 +5,9 @@ const Header = (props) => {
   // Change props.loggedIn to state?
   // Do you even need it?
 
+  const searchModal = document.querySelector(".modal");
+  const friendRequestModal = document.querySelector(".friend_requests");
+
   const modalDisplaySetter = (modal) => {
     if (!modal.style.display || modal.style.display === "none") {
       modal.style.display = "flex";
@@ -15,15 +18,11 @@ const Header = (props) => {
 
   const displaySearch = () => {
     props.setSearchedUser(null);
-    const searchModal = document.querySelector(".modal");
-    const friendRequestModal = document.querySelector(".friend_requests");
     friendRequestModal.style.display = "none";
     modalDisplaySetter(searchModal);
   };
 
   const displayFriendRequests = () => {
-    const searchModal = document.querySelector(".modal");
-    const friendRequestModal = document.querySelector(".friend_requests");
     searchModal.style.display = "none";
     modalDisplaySetter(friendRequestModal);
   };
