@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import styles from "../stylesheets/findUser.module.css";
+import styles from "../stylesheets/findUserModal.module.css";
 
-const FindUser = (props) => {
+const FindUserModal = (props) => {
   const userSearchBar = useRef();
 
   const getUser = async (e) => {
@@ -13,6 +13,12 @@ const FindUser = (props) => {
     const res = await fetchUser.json();
     props.setSearchedUser(res);
     userSearchBar.current.value = "";
+  };
+
+  const SendFriendRequest = () => {
+    if (props.searchedUser) {
+      return <div>{props.searchedUser.username}</div>;
+    }
   };
 
   return (
@@ -29,10 +35,10 @@ const FindUser = (props) => {
           />
           <button onClick={getUser}>Search</button>
         </div>
-        {props.searchedUser ? <p>{props.searchedUser.username}</p> : ""}
+        <SendFriendRequest />
       </div>
     </form>
   );
 };
 
-export default FindUser;
+export default FindUserModal;
