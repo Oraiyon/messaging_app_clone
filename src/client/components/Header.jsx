@@ -17,18 +17,14 @@ const Header = (props) => {
     props.setSearchedUser(null);
     const searchModal = document.querySelector(".modal");
     const friendRequestModal = document.querySelector(".friend_requests");
-    if (friendRequestModal.style.display === "flex") {
-      friendRequestModal.style.display = "none";
-    }
+    friendRequestModal.style.display = "none";
     modalDisplaySetter(searchModal);
   };
 
   const displayFriendRequests = () => {
     const searchModal = document.querySelector(".modal");
     const friendRequestModal = document.querySelector(".friend_requests");
-    if (searchModal.style.display === "flex") {
-      searchModal.style.display = "none";
-    }
+    searchModal.style.display = "none";
     modalDisplaySetter(friendRequestModal);
   };
 
