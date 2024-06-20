@@ -4,7 +4,7 @@ import styles from "../stylesheets/findUserModal.module.css";
 const FindUserModal = (props) => {
   const userSearchBar = useRef();
 
-  const getUser = async (e) => {
+  const searchUser = async (e) => {
     e.preventDefault();
     if (props.user.username === userSearchBar.current.value) {
       return;
@@ -51,7 +51,7 @@ const FindUserModal = (props) => {
             ref={userSearchBar}
             placeholder="Enter username"
           />
-          <button onClick={getUser}>Search</button>
+          <button onClick={searchUser}>Search</button>
         </div>
         <UserSearchInfo />
       </div>
