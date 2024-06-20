@@ -107,6 +107,25 @@ export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next)
   ];
   await sender.save();
   await receiver.save();
+  res.json(sender);
+});
+
+export const post_removeFriendRequest = expressAsyncHandler(async (req, res, next) => {
+  const [sender, receiver] = await Promise.all([
+    User.findOne({ username: req.params.sender }, { password: 0 }).exec(),
+    User.findOne({ username: req.params.receiver }, { password: 0 }).exec()
+  ]);
+  const newFriendRequestsSender = sender.friendRequests.filter(
+    (request) => request === receiver.username
+  );
+  const newFriendRequestsReceiver = receiver.friendRequests.filter(
+    (request) => request === sender.username
+  );
+  sender.friendRequests = newFriendRequestsSender;
+  receiver.friendRequests = newFriendRequestsReceiver;
+  await sender.save();
+  await receiver.save();
+  res.json(sender);
 });
 
 export default post_signup;

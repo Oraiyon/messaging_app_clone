@@ -19,11 +19,13 @@ const FindUserModal = (props) => {
     e.preventDefault();
     // Use ids instead of usernames?
     const fetchFriendRequest = await fetch(
-      `/api/friendrequest/${props.user.username}/${props.searchedUser.username}`,
+      `/api/friendrequest/send/${props.user.username}/${props.searchedUser.username}`,
       {
         method: "POST"
       }
     );
+    const res = await fetchFriendRequest.json();
+    props.setUser(res);
   };
 
   const UserSearchInfo = () => {

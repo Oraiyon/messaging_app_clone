@@ -4,7 +4,7 @@ import FindUserModal from "./FindUserModal";
 import FriendRequestsModal from "./FriendRequestsModal";
 
 const Messages = () => {
-  const [user, searchedUser, setSearchedUser] = useOutletContext();
+  const [user, setUser, searchedUser, setSearchedUser] = useOutletContext();
 
   return (
     <div className={styles.container}>
@@ -29,8 +29,13 @@ const Messages = () => {
           <input type="text" name="text" className={styles.text} id="text" />
           <button>Send</button>
         </form>
-        <FindUserModal user={user} searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
-        <FriendRequestsModal user={user} />
+        <FindUserModal
+          user={user}
+          setUser={setUser}
+          searchedUser={searchedUser}
+          setSearchedUser={setSearchedUser}
+        />
+        <FriendRequestsModal user={user} setUser={setUser} />
       </div>
     </div>
   );
