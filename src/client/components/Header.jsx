@@ -7,12 +7,15 @@ const Header = (props) => {
 
   const searchModal = document.querySelector(".modal");
   const friendRequestModal = document.querySelector(".friend_requests");
+  const chat_inputs = document.querySelector(".chat_inputs");
 
   const modalDisplaySetter = (modal) => {
     if (!modal.style.display || modal.style.display === "none") {
       modal.style.display = "flex";
+      chat_inputs.style.display = "none";
     } else {
       modal.style.display = "none";
+      chat_inputs.style.display = "flex";
     }
   };
 

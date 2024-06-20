@@ -1,9 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import Login from "./Login";
 import { Outlet } from "react-router-dom";
-import FindUserModal from "./FindUserModal";
-import FriendRequestsModal from "./FriendRequestsModal";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -26,13 +24,11 @@ const Profile = () => {
   if (!user) {
     return <Login />;
   }
-
+  // Put modals in Outlet
   return (
     <>
       <Header loggedIn={true} user={user} setSearchedUser={setSearchedUser} />
-      <FindUserModal user={user} searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
-      <FriendRequestsModal user={user} />
-      <Outlet context={user} />
+      <Outlet context={[user, searchedUser, setSearchedUser]} />
     </>
   );
 };

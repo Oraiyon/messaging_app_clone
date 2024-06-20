@@ -8,9 +8,10 @@
   flex-direction: column;
 }
 
-.messages {
+.chat {
   width: 100%;
   border: 1px solid blue;
+  position: relative;
 }
 
 form {

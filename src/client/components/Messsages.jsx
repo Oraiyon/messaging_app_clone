@@ -1,8 +1,10 @@
 import { useOutletContext } from "react-router-dom";
 import styles from "../stylesheets/Messages.module.css";
+import FindUserModal from "./FindUserModal";
+import FriendRequestsModal from "./FriendRequestsModal";
 
 const Messages = () => {
-  const user = useOutletContext();
+  const [user, searchedUser, setSearchedUser] = useOutletContext();
 
   return (
     <div className={styles.container}>
@@ -21,12 +23,14 @@ const Messages = () => {
         </form>
       </div>
 
-      <div className={styles.messages}>
-        <form action="" method="post">
-          <label htmlFor="message"></label>
-          <input type="text" name="message" className={styles.message} id="message" />
+      <div className={styles.chat}>
+        <form action="" method="post" className="chat_inputs">
+          <label htmlFor="text"></label>
+          <input type="text" name="text" className={styles.text} id="text" />
           <button>Send</button>
         </form>
+        <FindUserModal searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
+        <FriendRequestsModal user={user} />
       </div>
     </div>
   );
