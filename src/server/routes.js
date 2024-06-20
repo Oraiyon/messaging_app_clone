@@ -3,6 +3,7 @@ import post_signup, {
   post_login,
   logout,
   get_profile,
+  get_search_profile,
   post_sendFriendRequest,
   post_removeFriendRequest
 } from "./controllers/userController.js";
@@ -23,7 +24,7 @@ router.post("/:id/profile", post_login);
 router.get("/api/:id/profile/messages", get_profile);
 
 // Searches other user's info for becoming friends
-router.get("/api/search/:id", get_profile);
+router.get("/api/search/:username", get_search_profile);
 
 // Sends friend requests
 router.post("/api/friendrequest/send/:sender/:receiver", post_sendFriendRequest);

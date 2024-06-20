@@ -32,7 +32,6 @@ const post_signup = [
         // Checks if username is already taken
         const takenUsername = await User.findOne({ username: user.username }).exec();
         if (!errors.isEmpty() || takenUsername) {
-          // Find way to send error messages back
           res.redirect("/signup");
           return;
         }
@@ -43,7 +42,6 @@ const post_signup = [
   })
 ];
 
-// Add loggedIn to User model?
 export const post_login = [
   expressAsyncHandler(async (req, res, next) => {
     const user = await User.findOne({ username: req.body.username }).exec();
@@ -74,11 +72,15 @@ export const logout = (req, res, next) => {
 };
 
 export const get_profile = expressAsyncHandler(async (req, res, next) => {
-  // if user.loggedIn?
   if (req.user) {
     const user = await User.findById(req.params.id, { password: 0 }).exec();
     res.json(user);
   }
+});
+
+export const get_search_profile = expressAsyncHandler(async (req, res, next) => {
+  const user = await User.findOne({ username: req.params.username }, { password: 0 }).exec();
+  res.json(user);
 });
 
 export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next) => {
