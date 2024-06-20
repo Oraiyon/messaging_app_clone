@@ -48,7 +48,7 @@ const Login = () => {
           return;
         }
         // fetch doesn't allow redirects from server
-        window.location.href = `/${username}/profile/messages`;
+        window.location.href = `/${res._id}/profile/messages`;
       } catch (error) {
         console.log(error);
       }

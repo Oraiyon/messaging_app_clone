@@ -60,7 +60,7 @@ export const post_login = [
   }),
   passport.authenticate("local"),
   (req, res, next) => {
-    res.json(true);
+    res.json(req.user);
   }
 ];
 
@@ -76,7 +76,7 @@ export const logout = (req, res, next) => {
 export const get_profile = expressAsyncHandler(async (req, res, next) => {
   // if user.loggedIn?
   if (req.user) {
-    const user = await User.findOne({ username: req.params.username }, { password: 0 }).exec();
+    const user = await User.findById(req.params.id, { password: 0 }).exec();
     res.json(user);
   }
 });

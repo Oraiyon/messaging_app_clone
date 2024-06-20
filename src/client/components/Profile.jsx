@@ -10,7 +10,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // /:username/profile/messages
+        // /:id/profile/messages
         const res = await fetch(`/api${window.location.pathname}`);
         const data = await res.json();
         setUser(data);
@@ -24,7 +24,7 @@ const Profile = () => {
   if (!user) {
     return <Login />;
   }
-  // Put modals in Outlet
+
   return (
     <>
       <Header loggedIn={true} user={user} setSearchedUser={setSearchedUser} />

@@ -16,15 +16,14 @@ router.post("/signup", post_signup);
 router.post("/login", post_login);
 router.get("/logout", logout);
 
-// Use ids instead of usernames?
 // If user is not logged in cannot access a user profile
-router.post("/:username/profile", post_login);
+router.post("/:id/profile", post_login);
 
 // Gets user's profile information
-router.get("/api/:username/profile/messages", get_profile);
+router.get("/api/:id/profile/messages", get_profile);
 
 // Searches other user's info for becoming friends
-router.get("/api/search/:username", get_profile);
+router.get("/api/search/:id", get_profile);
 
 // Sends friend requests
 router.post("/api/friendrequest/send/:sender/:receiver", post_sendFriendRequest);
