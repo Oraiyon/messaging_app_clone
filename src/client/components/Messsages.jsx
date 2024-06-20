@@ -6,6 +6,7 @@ import FriendRequestsModal from "./FriendRequestsModal";
 const Messages = () => {
   const [user, setUser, searchedUser, setSearchedUser] = useOutletContext();
 
+  // How to find user.friends.username with id?
   return (
     <div className={styles.container}>
       <div className={styles.friends}>

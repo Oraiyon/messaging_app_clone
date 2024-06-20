@@ -83,11 +83,12 @@ export const get_search_profile = expressAsyncHandler(async (req, res, next) => 
   res.json(user);
 });
 
-export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next) => {
+export const post_send_friend_request = expressAsyncHandler(async (req, res, next) => {
   const [sender, receiver] = await Promise.all([
     User.findOne({ username: req.params.sender }).exec(),
     User.findOne({ username: req.params.receiver }).exec()
   ]);
+  // CHECK FRIENDS FIELD TOO
   for (const request of sender.friendRequests) {
     if (
       request.receiver.username === sender.username ||
@@ -96,6 +97,7 @@ export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next)
       return;
     }
   }
+  // populate()?
   sender.friendRequests = [
     ...sender.friendRequests,
     {
@@ -115,7 +117,7 @@ export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next)
   res.json(sender);
 });
 
-export const post_removeFriendRequest = expressAsyncHandler(async (req, res, next) => {
+export const post_remove_friend_request = expressAsyncHandler(async (req, res, next) => {
   const [sender, receiver] = await Promise.all([
     User.findById(req.params.sender, { password: 0 }).exec(),
     User.findById(req.params.receiver, { password: 0 }).exec()
@@ -128,6 +130,26 @@ export const post_removeFriendRequest = expressAsyncHandler(async (req, res, nex
   );
   sender.friendRequests = newFriendRequestsSender;
   receiver.friendRequests = newFriendRequestsReceiver;
+  await sender.save();
+  await receiver.save();
+  res.json(sender);
+});
+
+export const post_accept_friend_request = expressAsyncHandler(async (req, res, next) => {
+  const [sender, receiver] = await Promise.all([
+    User.findById(req.params.sender, { password: 0 }).exec(),
+    User.findById(req.params.receiver, { password: 0 }).exec()
+  ]);
+  const newFriendRequestsSender = sender.friendRequests.filter(
+    (request) => request === receiver.username
+  );
+  const newFriendRequestsReceiver = receiver.friendRequests.filter(
+    (request) => request === sender.username
+  );
+  sender.friendRequests = newFriendRequestsSender;
+  receiver.friendRequests = newFriendRequestsReceiver;
+  sender.friends = [...sender.friends, receiver._id];
+  receiver.friends = [...receiver.friends, sender._id];
   await sender.save();
   await receiver.save();
   res.json(sender);

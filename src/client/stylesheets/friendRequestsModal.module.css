@@ -13,3 +13,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.friend_request_inputs {
+  display: flex;
+  gap: 4px;
+}

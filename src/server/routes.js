@@ -4,8 +4,9 @@ import post_signup, {
   logout,
   get_profile,
   get_search_profile,
-  post_sendFriendRequest,
-  post_removeFriendRequest
+  post_send_friend_request,
+  post_remove_friend_request,
+  post_accept_friend_request
 } from "./controllers/userController.js";
 
 const router = express.Router();
@@ -27,9 +28,12 @@ router.get("/api/:id/profile/messages", get_profile);
 router.get("/api/search/:username", get_search_profile);
 
 // Sends friend requests
-router.post("/api/friendrequest/send/:sender/:receiver", post_sendFriendRequest);
+router.post("/api/friendrequest/send/:sender/:receiver", post_send_friend_request);
 
 // Removes friend request
-router.post("/api/friendrequest/remove/:sender/:receiver", post_removeFriendRequest);
+router.post("/api/friendrequest/remove/:sender/:receiver", post_remove_friend_request);
+
+// Accept friend request
+router.post("/api/friendrequest/accept/:sender/:receiver", post_accept_friend_request);
 
 export default router;
