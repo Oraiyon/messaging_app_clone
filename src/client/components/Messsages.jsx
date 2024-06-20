@@ -29,7 +29,7 @@ const Messages = () => {
           <input type="text" name="text" className={styles.text} id="text" />
           <button>Send</button>
         </form>
-        <FindUserModal searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
+        <FindUserModal user={user} searchedUser={searchedUser} setSearchedUser={setSearchedUser} />
         <FriendRequestsModal user={user} />
       </div>
     </div>
