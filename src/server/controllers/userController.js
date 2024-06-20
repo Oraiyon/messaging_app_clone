@@ -89,22 +89,25 @@ export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next)
     User.findOne({ username: req.params.receiver }).exec()
   ]);
   for (const request of sender.friendRequests) {
-    if (request.receiver === receiver.username) {
+    if (
+      request.receiver.username === sender.username ||
+      request.receiver.username === receiver.username
+    ) {
       return;
     }
   }
   sender.friendRequests = [
     ...sender.friendRequests,
     {
-      sender: sender.username,
-      receiver: receiver.username
+      sender: { username: sender.username, id: sender._id },
+      receiver: { username: receiver.username, id: receiver._id }
     }
   ];
   receiver.friendRequests = [
     ...receiver.friendRequests,
     {
-      sender: sender.username,
-      receiver: receiver.username
+      sender: { username: sender.username, id: sender._id },
+      receiver: { username: receiver.username, id: receiver._id }
     }
   ];
   await sender.save();
@@ -114,8 +117,8 @@ export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next)
 
 export const post_removeFriendRequest = expressAsyncHandler(async (req, res, next) => {
   const [sender, receiver] = await Promise.all([
-    User.findOne({ username: req.params.sender }, { password: 0 }).exec(),
-    User.findOne({ username: req.params.receiver }, { password: 0 }).exec()
+    User.findById(req.params.sender, { password: 0 }).exec(),
+    User.findById(req.params.receiver, { password: 0 }).exec()
   ]);
   const newFriendRequestsSender = sender.friendRequests.filter(
     (request) => request === receiver.username

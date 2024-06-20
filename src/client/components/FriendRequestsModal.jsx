@@ -1,10 +1,9 @@
 import styles from "../stylesheets/friendRequestsModal.module.css";
 
 const FriendRequestsModal = (props) => {
-  // Change index to _id?
-  const removeFriendRequest = async (index) => {
+  const removeFriendRequest = async (request) => {
     const fetchUser = await fetch(
-      `/api/friendrequest/remove/${props.user.username}/${props.user.friendRequests[index].receiver === props.user.username ? props.user.friendRequests[index].sender : props.user.friendRequests[index].receiver}`,
+      `/api/friendrequest/remove/${props.user._id}/${request.receiver.id === props.user._id ? request.sender.id : request.receiver.id}`,
       { method: "POST" }
     );
     const res = await fetchUser.json();
@@ -12,18 +11,21 @@ const FriendRequestsModal = (props) => {
   };
 
   // Separate friend requests for sent or received?
-  // Use user._id for key?
   return (
     <div className={styles.friend_request_modal + " friend_requests"}>
       <h3>Friend Requests</h3>
       {props.user.friendRequests.length ? (
-        props.user.friendRequests.map((request, index) => (
-          <div key={index} className={styles.friend_request}>
-            <p>{request.receiver === props.user.username ? request.sender : request.receiver}</p>
+        props.user.friendRequests.map((request) => (
+          <div key={request.sender.id + request.receiver.id} className={styles.friend_request}>
+            <p>
+              {request.receiver.username === props.user.username
+                ? request.sender.username
+                : request.receiver.username}
+            </p>
             <div>
-              {request.receiver === props.user.username ? <button>Accept</button> : ""}
-              <button onClick={() => removeFriendRequest(index)}>
-                {request.receiver === props.user.username ? "Decline" : "Unsend"}
+              {request.receiver.username === props.user.username ? <button>Accept</button> : ""}
+              <button onClick={() => removeFriendRequest(request)}>
+                {request.receiver.username === props.user.username ? "Decline" : "Unsend"}
               </button>
             </div>
           </div>
