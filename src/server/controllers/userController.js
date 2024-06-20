@@ -91,21 +91,18 @@ export const post_sendFriendRequest = expressAsyncHandler(async (req, res, next)
       return;
     }
   }
-  // No need for friend field. If there is a request, they are not friends
   sender.friendRequests = [
     ...sender.friendRequests,
     {
       sender: sender.username,
-      receiver: receiver.username,
-      friend: false
+      receiver: receiver.username
     }
   ];
   receiver.friendRequests = [
     ...receiver.friendRequests,
     {
       sender: sender.username,
-      receiver: receiver.username,
-      friend: false
+      receiver: receiver.username
     }
   ];
   await sender.save();
