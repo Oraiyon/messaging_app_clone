@@ -36,28 +36,53 @@ const FindUserModal = (props) => {
     props.setUser(res);
   };
 
+  const declineFriendRequest = async (e) => {
+    e.preventDefault();
+    console.log("HI");
+  };
+
   const FriendRequestButton = () => {
     let sent = false;
+    let friendReq;
     for (const request of props.user.friendRequests) {
-      if (props.foundUser && request.receiver.username === props.foundUser.username) {
+      if (
+        (props.foundUser && request.sender.username === props.foundUser.username) ||
+        (props.foundUser && request.receiver.username === props.foundUser.username)
+      ) {
+        friendReq = request;
         sent = true;
         break;
       }
     }
     if (sent) {
-      // Check if you are sender or receiver
-      return (
-        <button
-          onClick={unsendFriendRequest}
-          className={
-            props.foundUser && props.foundUser.username
-              ? styles.active_friend_button
-              : styles.inactive_friend_button
-          }
-        >
-          Unsend Request
-        </button>
-      );
+      if (props.user._id === friendReq.sender.id) {
+        return (
+          <button
+            onClick={unsendFriendRequest}
+            className={
+              props.foundUser && props.foundUser.username
+                ? styles.active_friend_button
+                : styles.inactive_friend_button
+            }
+          >
+            Unsend Request
+          </button>
+        );
+      } else {
+        // Add accept request
+        return (
+          <button
+            onClick={declineFriendRequest}
+            className={
+              props.foundUser && props.foundUser.username
+                ? styles.active_friend_button
+                : styles.inactive_friend_button
+            }
+          >
+            Decline Request
+          </button>
+        );
+      }
     } else {
       return (
         <button
