@@ -8,7 +8,7 @@ const Router = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navigate to=":id/profile" />
+      element: <Navigate to="login" />
     },
     {
       path: "signup",
