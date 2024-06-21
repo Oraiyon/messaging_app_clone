@@ -85,8 +85,8 @@ export const get_search_profile = expressAsyncHandler(async (req, res, next) => 
 
 export const post_send_friend_request = expressAsyncHandler(async (req, res, next) => {
   const [sender, receiver] = await Promise.all([
-    User.findOne({ username: req.params.sender }).exec(),
-    User.findOne({ username: req.params.receiver }).exec()
+    User.findById(req.params.sender).exec(),
+    User.findById(req.params.receiver).exec()
   ]);
   // CHECK FRIENDS FIELD TOO
   for (const request of sender.friendRequests) {

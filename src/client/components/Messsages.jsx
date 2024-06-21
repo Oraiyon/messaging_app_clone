@@ -4,7 +4,7 @@ import FindUserModal from "./FindUserModal";
 import FriendRequestsModal from "./FriendRequestsModal";
 
 const Messages = () => {
-  const [user, setUser, searchedUser, setSearchedUser] = useOutletContext();
+  const [user, setUser, foundUser, setFoundUser] = useOutletContext();
 
   // How to find user.friends.username with id?
   return (
@@ -33,8 +33,8 @@ const Messages = () => {
         <FindUserModal
           user={user}
           setUser={setUser}
-          searchedUser={searchedUser}
-          setSearchedUser={setSearchedUser}
+          foundUser={foundUser}
+          setFoundUser={setFoundUser}
         />
         <FriendRequestsModal user={user} setUser={setUser} />
       </div>

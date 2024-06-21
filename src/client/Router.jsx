@@ -9,6 +9,7 @@ const Router = () => {
     {
       path: "/",
       element: <Navigate to="login" />
+      // Create errorElement
     },
     {
       path: "signup",

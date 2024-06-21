@@ -1,25 +1,23 @@
-import { useRef, useState } from "react";
 import styles from "../stylesheets/findUserModal.module.css";
 
 const FindUserModal = (props) => {
-  const userSearchBar = useRef();
-
-  const searchUser = async (e) => {
-    e.preventDefault();
-    if (props.user.username === userSearchBar.current.value) {
+  const searchUserProfiles = async (e) => {
+    if (!e.target.value) {
       return;
     }
-    const fetchUser = await fetch(`/api/search/${userSearchBar.current.value}`);
-    const res = await fetchUser.json();
-    props.setSearchedUser(res);
-    userSearchBar.current.value = "";
+    const searchUser = await fetch(`/api/search/${e.target.value}`);
+    const res = await searchUser.json();
+    if (res) {
+      props.setFoundUser(res);
+    } else {
+      props.setFoundUser(null);
+    }
   };
 
   const sendFriendRequest = async (e) => {
     e.preventDefault();
-    // Use ids instead of usernames?
     const fetchFriendRequest = await fetch(
-      `/api/friendrequest/send/${props.user.username}/${props.searchedUser.username}`,
+      `/api/friendrequest/send/${props.user._id}/${props.foundUser._id}`,
       {
         method: "POST"
       }
@@ -28,13 +26,43 @@ const FindUserModal = (props) => {
     props.setUser(res);
   };
 
-  const UserSearchInfo = () => {
-    if (props.searchedUser) {
+  const unsendFriendRequest = async (e) => {
+    console.log("END");
+  };
+
+  const FriendRequestButton = () => {
+    let friend = false;
+    for (const request of props.user.friendRequests) {
+      if (props.foundUser && request.sender.username === props.foundUser.username) {
+        friend = true;
+        break;
+      }
+    }
+    if (friend) {
       return (
-        <div className={styles.send_request}>
-          <p>{props.searchedUser.username}</p>
-          <button onClick={sendFriendRequest}>Send Request</button>
-        </div>
+        <button
+          onClick={unsendFriendRequest}
+          className={
+            props.foundUser && props.foundUser.username
+              ? styles.active_friend_button
+              : styles.inactive_friend_button
+          }
+        >
+          Unsend Request
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={sendFriendRequest}
+          className={
+            props.foundUser && props.foundUser.username
+              ? styles.active_friend_button
+              : styles.inactive_friend_button
+          }
+        >
+          Add Friend
+        </button>
       );
     }
   };
@@ -48,12 +76,14 @@ const FindUserModal = (props) => {
             type="text"
             name="findUser"
             id="findUser"
-            ref={userSearchBar}
             placeholder="Enter username"
+            onChange={searchUserProfiles}
           />
-          <button onClick={searchUser}>Search</button>
         </div>
-        <UserSearchInfo />
+        <div className={styles.modal_searched_user}>
+          <p>{props.foundUser ? props.foundUser.username : ""}</p>
+          <FriendRequestButton />
+        </div>
       </div>
     </form>
   );

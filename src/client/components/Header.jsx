@@ -8,6 +8,7 @@ const Header = (props) => {
   const searchModal = document.querySelector(".modal");
   const friendRequestModal = document.querySelector(".friend_requests");
   const chat_inputs = document.querySelector(".chat_inputs");
+  const findUser = document.querySelector("#findUser");
 
   const modalDisplaySetter = (modal) => {
     if (!modal.style.display || modal.style.display === "none") {
@@ -20,12 +21,15 @@ const Header = (props) => {
   };
 
   const displaySearch = () => {
-    props.setSearchedUser(null);
+    findUser.value = "";
+    props.setFoundUser(null);
     friendRequestModal.style.display = "none";
     modalDisplaySetter(searchModal);
   };
 
   const displayFriendRequests = () => {
+    findUser.value = "";
+    props.setFoundUser(null);
     searchModal.style.display = "none";
     modalDisplaySetter(friendRequestModal);
   };

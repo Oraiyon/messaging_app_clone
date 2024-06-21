@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [searchedUser, setSearchedUser] = useState(null);
+  const [foundUser, setFoundUser] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,8 +27,8 @@ const Profile = () => {
 
   return (
     <>
-      <Header loggedIn={true} user={user} setSearchedUser={setSearchedUser} />
-      <Outlet context={[user, setUser, searchedUser, setSearchedUser]} />
+      <Header loggedIn={true} user={user} setFoundUser={setFoundUser} />
+      <Outlet context={[user, setUser, foundUser, setFoundUser]} />
     </>
   );
 };
