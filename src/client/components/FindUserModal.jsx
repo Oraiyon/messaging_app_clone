@@ -27,18 +27,25 @@ const FindUserModal = (props) => {
   };
 
   const unsendFriendRequest = async (e) => {
-    console.log("END");
+    e.preventDefault();
+    const fetchUser = await fetch(
+      `/api/friendrequest/remove/${props.user._id}/${props.foundUser._id}`,
+      { method: "POST" }
+    );
+    const res = await fetchUser.json();
+    props.setUser(res);
   };
 
   const FriendRequestButton = () => {
-    let friend = false;
+    let sent = false;
     for (const request of props.user.friendRequests) {
-      if (props.foundUser && request.sender.username === props.foundUser.username) {
-        friend = true;
+      if (props.foundUser && request.receiver.username === props.foundUser.username) {
+        sent = true;
         break;
       }
     }
-    if (friend) {
+    if (sent) {
+      // Check if you are sender or receiver
       return (
         <button
           onClick={unsendFriendRequest}
