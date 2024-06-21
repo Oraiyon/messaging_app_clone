@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Header from "./Header";
 import styles from "../stylesheets/login.module.css";
 import { useState, useRef } from "react";
 
@@ -64,60 +63,57 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Header />
-      <form method="post" className={styles.login_form} onSubmit={validateLoginInputs}>
-        <h2>Login</h2>
-        <div className={styles.form_container}>
-          <fieldset className={validUsername ? "" : styles.invalid_input}>
-            <legend>Username</legend>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <p className={styles.username_warning} ref={usernameWarning}>
-              Enter a username
-            </p>
-          </fieldset>
-          <fieldset className={validPassword ? "" : styles.invalid_input}>
-            <legend>Password</legend>
-            <label htmlFor="password">Password</label>
-            <div className={styles.password_inputs}>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
-                ref={passwordInput}
-              />
-              <div>
-                <p>Show password</p>
-                <label htmlFor="show_password"></label>
-                <input
-                  type="checkbox"
-                  name="show_password"
-                  id="show_password"
-                  onClick={showPassword}
-                />
-              </div>
-            </div>
-            <p className={styles.password_warning} ref={passwordWarning}>
-              Enter a password
-            </p>
-          </fieldset>
-          <p className={styles.wrongUsernameOrPassword} ref={wrongUsernameOrPassword}>
-            Wrong username or password
+    <form method="post" className={styles.login_form} onSubmit={validateLoginInputs}>
+      <h2>Login</h2>
+      <div className={styles.form_container}>
+        <fieldset className={validUsername ? "" : styles.invalid_input}>
+          <legend>Username</legend>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <p className={styles.username_warning} ref={usernameWarning}>
+            Enter a username
           </p>
-        </div>
-        <button>Login</button>
-        <p>
-          Don't have an account yet? <Link to={"/signup"}>Sign Up!</Link>
+        </fieldset>
+        <fieldset className={validPassword ? "" : styles.invalid_input}>
+          <legend>Password</legend>
+          <label htmlFor="password">Password</label>
+          <div className={styles.password_inputs}>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={(e) => setPassword(e.target.value)}
+              ref={passwordInput}
+            />
+            <div>
+              <p>Show password</p>
+              <label htmlFor="show_password"></label>
+              <input
+                type="checkbox"
+                name="show_password"
+                id="show_password"
+                onClick={showPassword}
+              />
+            </div>
+          </div>
+          <p className={styles.password_warning} ref={passwordWarning}>
+            Enter a password
+          </p>
+        </fieldset>
+        <p className={styles.wrongUsernameOrPassword} ref={wrongUsernameOrPassword}>
+          Wrong username or password
         </p>
-      </form>
-    </>
+      </div>
+      <button>Login</button>
+      <p>
+        Don't have an account yet? <Link to={"/signup"}>Sign Up!</Link>
+      </p>
+    </form>
   );
 };
 

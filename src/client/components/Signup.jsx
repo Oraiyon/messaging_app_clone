@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Header from "./Header";
 import styles from "../stylesheets/signup.module.css";
 import { useRef, useState } from "react";
 
@@ -73,49 +72,46 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <Header />
-      <form method="post" className={styles.signup_form} onSubmit={validateSignUpInputs}>
-        <h2>Sign Up</h2>
-        <div className={styles.form_container}>
-          <fieldset className={validUsername ? "" : styles.invalid_input}>
-            <legend className={validUsername ? "" : styles.invalid_input}>Username</legend>
-            <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" onChange={validateUsername} />
-            <p className={styles.username_warning} ref={usernameWarning}>
-              Must be atleast 3 characters long
-            </p>
-          </fieldset>
-          <fieldset className={validPassword ? "" : styles.invalid_input}>
-            <legend className={validPassword ? "" : styles.invalid_input}>Password</legend>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" onChange={validatePassword} />
-            <p className={styles.password_warning} ref={passwordWarning}>
-              Must be atleast 6 characters long
-            </p>
-          </fieldset>
-          <fieldset className={validConfirmPassword ? "" : styles.invalid_input}>
-            <legend className={validConfirmPassword ? "" : styles.invalid_input}>
-              Confirm Password
-            </legend>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              onChange={validateConfirmPassword}
-            />
-            <p className={styles.confirm_password_warning} ref={confirmPasswordWarning}>
-              Must match your password
-            </p>
-          </fieldset>
-        </div>
-        <button>Sign Up</button>
-        <p>
-          Already have an account? <Link to={"/login"}>Login!</Link>
-        </p>
-      </form>
-    </>
+    <form method="post" className={styles.signup_form} onSubmit={validateSignUpInputs}>
+      <h2>Sign Up</h2>
+      <div className={styles.form_container}>
+        <fieldset className={validUsername ? "" : styles.invalid_input}>
+          <legend className={validUsername ? "" : styles.invalid_input}>Username</legend>
+          <label htmlFor="username">Username</label>
+          <input type="text" name="username" id="username" onChange={validateUsername} />
+          <p className={styles.username_warning} ref={usernameWarning}>
+            Must be atleast 3 characters long
+          </p>
+        </fieldset>
+        <fieldset className={validPassword ? "" : styles.invalid_input}>
+          <legend className={validPassword ? "" : styles.invalid_input}>Password</legend>
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password" onChange={validatePassword} />
+          <p className={styles.password_warning} ref={passwordWarning}>
+            Must be atleast 6 characters long
+          </p>
+        </fieldset>
+        <fieldset className={validConfirmPassword ? "" : styles.invalid_input}>
+          <legend className={validConfirmPassword ? "" : styles.invalid_input}>
+            Confirm Password
+          </legend>
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            onChange={validateConfirmPassword}
+          />
+          <p className={styles.confirm_password_warning} ref={confirmPasswordWarning}>
+            Must match your password
+          </p>
+        </fieldset>
+      </div>
+      <button>Sign Up</button>
+      <p>
+        Already have an account? <Link to={"/login"}>Login!</Link>
+      </p>
+    </form>
   );
 };
 
