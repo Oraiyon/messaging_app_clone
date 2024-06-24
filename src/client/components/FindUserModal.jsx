@@ -36,6 +36,7 @@ const FindUserModal = (props) => {
     props.setUser(res);
   };
 
+  // WIP
   const declineFriendRequest = async (e) => {
     e.preventDefault();
     console.log("HI");
@@ -71,16 +72,18 @@ const FindUserModal = (props) => {
       } else {
         // Add accept request
         return (
-          <button
-            onClick={declineFriendRequest}
-            className={
-              props.foundUser && props.foundUser.username
-                ? styles.active_friend_button
-                : styles.inactive_friend_button
-            }
-          >
-            Decline Request
-          </button>
+          <div>
+            <button
+              onClick={declineFriendRequest}
+              className={
+                props.foundUser && props.foundUser.username
+                  ? styles.active_friend_button
+                  : styles.inactive_friend_button
+              }
+            >
+              Decline Request
+            </button>
+          </div>
         );
       }
     } else {
@@ -101,21 +104,17 @@ const FindUserModal = (props) => {
 
   return (
     <form action="" className={styles.modal_form + " modal"}>
-      <div className={styles.modal_info}>
-        <div className={styles.modal_inputs}>
-          <label htmlFor="findUser"></label>
-          <input
-            type="text"
-            name="findUser"
-            id="findUser"
-            placeholder="Enter username"
-            onChange={searchUserProfiles}
-          />
-        </div>
-        <div className={styles.modal_searched_user}>
-          <p>{props.foundUser ? props.foundUser.username : ""}</p>
-          <FriendRequestButton />
-        </div>
+      <label htmlFor="findUser"></label>
+      <input
+        type="text"
+        name="findUser"
+        id="findUser"
+        placeholder="Enter username"
+        onChange={searchUserProfiles}
+      />
+      <div className={styles.modal_searched_user}>
+        <p>{props.foundUser ? props.foundUser.username : ""}</p>
+        <FriendRequestButton />
       </div>
     </form>
   );
