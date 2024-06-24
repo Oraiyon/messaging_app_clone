@@ -7,7 +7,6 @@ import FriendsList from "./FriendsList";
 const Messages = () => {
   const [user, setUser, foundUser, setFoundUser] = useOutletContext();
 
-  // How to find user.friends.username with id?
   return (
     <div className={styles.container}>
       <div className={styles.friends}>

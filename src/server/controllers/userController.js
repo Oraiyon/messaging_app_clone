@@ -135,24 +135,30 @@ export const post_remove_friend_request = expressAsyncHandler(async (req, res, n
   res.json(sender);
 });
 
-export const post_accept_friend_request = expressAsyncHandler(async (req, res, next) => {
-  const [sender, receiver] = await Promise.all([
-    User.findById(req.params.sender, { password: 0 }).exec(),
-    User.findById(req.params.receiver, { password: 0 }).exec()
-  ]);
-  const newFriendRequestsSender = sender.friendRequests.filter(
-    (request) => request === receiver.username
-  );
-  const newFriendRequestsReceiver = receiver.friendRequests.filter(
-    (request) => request === sender.username
-  );
-  sender.friendRequests = newFriendRequestsSender;
-  receiver.friendRequests = newFriendRequestsReceiver;
-  sender.friends = [...sender.friends, receiver._id];
-  receiver.friends = [...receiver.friends, sender._id];
-  await sender.save();
-  await receiver.save();
-  res.json(sender);
-});
+export const post_accept_friend_request = [
+  expressAsyncHandler(async (req, res, next) => {
+    const [sender, receiver] = await Promise.all([
+      User.findById(req.params.sender, { password: 0 }).exec(),
+      User.findById(req.params.receiver, { password: 0 }).exec()
+    ]);
+    const newFriendRequestsSender = sender.friendRequests.filter(
+      (request) => request === receiver.username
+    );
+    const newFriendRequestsReceiver = receiver.friendRequests.filter(
+      (request) => request === sender.username
+    );
+    sender.friendRequests = newFriendRequestsSender;
+    receiver.friendRequests = newFriendRequestsReceiver;
+    sender.friends = [...sender.friends, receiver._id];
+    receiver.friends = [...receiver.friends, sender._id];
+    await sender.save();
+    await receiver.save();
+    next();
+  }),
+  expressAsyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.params.sender, { password: 0 }).populate("friends").exec();
+    res.json(user);
+  })
+];
 
 export default post_signup;
