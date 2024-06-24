@@ -8,7 +8,7 @@ const Header = (props) => {
   const searchModal = document.querySelector(".modal");
   const friendRequestModal = document.querySelector(".friend_requests");
   const chat_inputs = document.querySelector(".chat_inputs");
-  const findUser = document.querySelector("#findUser");
+  const searchUser = document.querySelector("#searchUser");
 
   const modalDisplaySetter = (modal) => {
     if (!modal.style.display || modal.style.display === "none") {
@@ -21,14 +21,14 @@ const Header = (props) => {
   };
 
   const displaySearch = () => {
-    findUser.value = "";
+    searchUser.value = "";
     props.setFoundUser(null);
     friendRequestModal.style.display = "none";
     modalDisplaySetter(searchModal);
   };
 
   const displayFriendRequests = () => {
-    findUser.value = "";
+    searchUser.value = "";
     props.setFoundUser(null);
     searchModal.style.display = "none";
     modalDisplaySetter(friendRequestModal);
@@ -36,37 +36,20 @@ const Header = (props) => {
 
   return (
     <header>
-      {props.loggedIn ? (
-        <>
-          <div className={styles.account_links}>
-            <div>
-              <Link to={`/${props.user.username}/profile/messages`}>Messages</Link>
-              <Link>Profile</Link>
-              <Link>Settings</Link>
-              <button onClick={displaySearch}>Find user</button>
-            </div>
-            <div>
-              <button onClick={displayFriendRequests}>Friend Requests</button>
-              <button>
-                <a href="/logout">Logout</a>
-              </button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className={styles.header_buttons}>
+      <div className={styles.account_links}>
+        <div>
+          <Link to={`/${props.user.username}/profile/messages`}>Messages</Link>
+          <Link>Profile</Link>
+          <Link>Settings</Link>
+          <button onClick={displaySearch}>Search user</button>
+        </div>
+        <div>
+          <button onClick={displayFriendRequests}>Friend Requests</button>
           <button>
-            <Link to={"/signup"} className={styles.link}>
-              Sign Up
-            </Link>
-          </button>
-          <button>
-            <Link to={"/login"} className={styles.link}>
-              Login
-            </Link>
+            <a href="/logout">Logout</a>
           </button>
         </div>
-      )}
+      </div>
     </header>
   );
 };

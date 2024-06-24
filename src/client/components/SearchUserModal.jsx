@@ -1,6 +1,6 @@
-import styles from "../stylesheets/findUserModal.module.css";
+import styles from "../stylesheets/searchUserModal.module.css";
 
-const FindUserModal = (props) => {
+const SearchUserModal = (props) => {
   const searchUserProfiles = async (e) => {
     if (!e.target.value) {
       props.setFoundUser(null);
@@ -105,11 +105,12 @@ const FindUserModal = (props) => {
 
   return (
     <form action="" className={styles.modal_form + " modal"}>
-      <label htmlFor="findUser"></label>
+      <h3>Search User</h3>
+      <label htmlFor="searchUser"></label>
       <input
         type="text"
-        name="findUser"
-        id="findUser"
+        name="searchUser"
+        id="searchUser"
         placeholder="Enter username"
         onChange={searchUserProfiles}
       />
@@ -121,4 +122,4 @@ const FindUserModal = (props) => {
   );
 };
 
-export default FindUserModal;
+export default SearchUserModal;
