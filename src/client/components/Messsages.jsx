@@ -2,7 +2,6 @@ import { useOutletContext } from "react-router-dom";
 import styles from "../stylesheets/Messages.module.css";
 import SearchUserModal from "./SearchUserModal";
 import FriendRequestsModal from "./FriendRequestsModal";
-import SearchUserModal from "./SearchUserModal";
 
 const Messages = () => {
   const [user, setUser, foundUser, setFoundUser] = useOutletContext();
