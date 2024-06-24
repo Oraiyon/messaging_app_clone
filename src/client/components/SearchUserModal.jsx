@@ -27,7 +27,7 @@ const SearchUserModal = (props) => {
     props.setUser(res);
   };
 
-  const unsendFriendRequest = async (e) => {
+  const removeFriendRequest = async (e) => {
     e.preventDefault();
     const fetchUser = await fetch(
       `/api/friendrequest/remove/${props.user._id}/${props.foundUser._id}`,
@@ -37,15 +37,24 @@ const SearchUserModal = (props) => {
     props.setUser(res);
   };
 
-  // WIP
-  const declineFriendRequest = async (e) => {
+  const acceptFriendRequest = async (e) => {
     e.preventDefault();
-    console.log("HI");
+    const fetchUser = await fetch(
+      `/api/friendrequest/accept/${props.user._id}/${props.foundUser._id}`,
+      { method: "POST" }
+    );
+    const res = await fetchUser.json();
+    props.setUser(res);
   };
 
   const FriendRequestButton = () => {
     let sent = false;
     let friendReq;
+    for (const friend of props.user.friends) {
+      if (props.foundUser._id === friend) {
+        return <button>Remove Friend</button>;
+      }
+    }
     for (const request of props.user.friendRequests) {
       if (
         (props.foundUser && request.sender.username === props.foundUser.username) ||
@@ -60,7 +69,7 @@ const SearchUserModal = (props) => {
       if (props.user._id === friendReq.sender.id) {
         return (
           <button
-            onClick={unsendFriendRequest}
+            onClick={removeFriendRequest}
             className={
               props.foundUser && props.foundUser.username
                 ? styles.active_friend_button
@@ -71,11 +80,20 @@ const SearchUserModal = (props) => {
           </button>
         );
       } else {
-        // Add accept request
         return (
           <div>
             <button
-              onClick={declineFriendRequest}
+              onClick={acceptFriendRequest}
+              className={
+                props.foundUser && props.foundUser.username
+                  ? styles.active_friend_button
+                  : styles.inactive_friend_button
+              }
+            >
+              Accept Request
+            </button>
+            <button
+              onClick={removeFriendRequest}
               className={
                 props.foundUser && props.foundUser.username
                   ? styles.active_friend_button
@@ -97,7 +115,7 @@ const SearchUserModal = (props) => {
               : styles.inactive_friend_button
           }
         >
-          Add Friend
+          Send Friend Request
         </button>
       );
     }
