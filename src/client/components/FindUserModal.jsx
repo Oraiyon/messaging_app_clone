@@ -3,6 +3,7 @@ import styles from "../stylesheets/findUserModal.module.css";
 const FindUserModal = (props) => {
   const searchUserProfiles = async (e) => {
     if (!e.target.value) {
+      props.setFoundUser(null);
       return;
     }
     const searchUser = await fetch(`/api/search/${e.target.value}`);
