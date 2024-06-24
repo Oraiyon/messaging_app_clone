@@ -51,7 +51,7 @@ const SearchUserModal = (props) => {
     let sent = false;
     let friendReq;
     for (const friend of props.user.friends) {
-      if (props.foundUser._id === friend) {
+      if (props.foundUser && props.foundUser._id === friend) {
         return <button>Remove Friend</button>;
       }
     }
