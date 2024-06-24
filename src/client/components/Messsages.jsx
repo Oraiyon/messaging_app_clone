@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import styles from "../stylesheets/Messages.module.css";
 import SearchUserModal from "./SearchUserModal";
 import FriendRequestsModal from "./FriendRequestsModal";
+import FriendsList from "./FriendsList";
 
 const Messages = () => {
   const [user, setUser, foundUser, setFoundUser] = useOutletContext();
@@ -10,9 +11,7 @@ const Messages = () => {
   return (
     <div className={styles.container}>
       <div className={styles.friends}>
-        <div className={styles.friends_list}>
-          {user.friends.length ? <h1>HELLO WORLD</h1> : <p>No friends...</p>}
-        </div>
+        <FriendsList user={user} />
         <form action="" method="post">
           <label htmlFor="friend_search"></label>
           <input

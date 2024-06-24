@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
 
+const Schema = mongoose.Schema;
+
 const UserSchema = mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
-  friends: { type: Array },
+  // ref = model
+  friends: [{ type: Schema.Types.ObjectId, ref: "users" }],
   friendRequests: { type: Array }
 });
 

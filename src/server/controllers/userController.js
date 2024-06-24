@@ -73,7 +73,7 @@ export const logout = (req, res, next) => {
 
 export const get_profile = expressAsyncHandler(async (req, res, next) => {
   if (req.user) {
-    const user = await User.findById(req.params.id, { password: 0 }).exec();
+    const user = await User.findById(req.params.id, { password: 0 }).populate("friends").exec();
     res.json(user);
   }
 });
