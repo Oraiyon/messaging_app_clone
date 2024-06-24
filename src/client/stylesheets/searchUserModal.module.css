@@ -15,6 +15,11 @@
   width: 100%;
 }
 
+.modal_searched_user > div {
+  display: flex;
+  gap: 4px;
+}
+
 .inactive_friend_button {
   display: none;
 }
