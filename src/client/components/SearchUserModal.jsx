@@ -2,7 +2,7 @@ import styles from "../stylesheets/searchUserModal.module.css";
 
 const SearchUserModal = (props) => {
   const searchUserProfiles = async (e) => {
-    if (!e.target.value) {
+    if (!e.target.value || e.target.value === props.user.username) {
       props.setFoundUser(null);
       return;
     }
@@ -47,12 +47,21 @@ const SearchUserModal = (props) => {
     props.setUser(res);
   };
 
+  const removeFriend = async (e, friend) => {
+    e.preventDefault();
+    const fetchUser = await fetch(`/api/friend/${props.user._id}/${friend._id}`, {
+      method: "POST"
+    });
+    const res = await fetchUser.json();
+    props.setUser(res);
+  };
+
   const FriendRequestButton = () => {
     let sent = false;
     let friendReq;
     for (const friend of props.user.friends) {
-      if (props.foundUser && props.foundUser._id === friend) {
-        return <button>Remove Friend</button>;
+      if (props.foundUser && props.foundUser._id === friend._id) {
+        return <button onClick={(e) => removeFriend(e, friend)}>Remove Friend</button>;
       }
     }
     for (const request of props.user.friendRequests) {
