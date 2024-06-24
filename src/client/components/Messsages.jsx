@@ -1,7 +1,8 @@
 import { useOutletContext } from "react-router-dom";
 import styles from "../stylesheets/Messages.module.css";
-import FindUserModal from "./FindUserModal";
+import SearchUserModal from "./SearchUserModal";
 import FriendRequestsModal from "./FriendRequestsModal";
+import SearchUserModal from "./SearchUserModal";
 
 const Messages = () => {
   const [user, setUser, foundUser, setFoundUser] = useOutletContext();
@@ -30,7 +31,7 @@ const Messages = () => {
           <input type="text" name="text" className={styles.text} id="text" />
           <button>Send</button>
         </form>
-        <FindUserModal
+        <SearchUserModal
           user={user}
           setUser={setUser}
           foundUser={foundUser}
