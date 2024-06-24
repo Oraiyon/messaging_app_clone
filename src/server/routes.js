@@ -6,7 +6,8 @@ import post_signup, {
   get_search_profile,
   post_send_friend_request,
   post_remove_friend_request,
-  post_accept_friend_request
+  post_accept_friend_request,
+  post_remove_friend
 } from "./controllers/userController.js";
 
 const router = express.Router();
@@ -35,5 +36,8 @@ router.post("/api/friendrequest/remove/:sender/:receiver", post_remove_friend_re
 
 // Accept friend request
 router.post("/api/friendrequest/accept/:sender/:receiver", post_accept_friend_request);
+
+// Remove friend
+router.post("/api/friend/:id/:friend", post_remove_friend);
 
 export default router;

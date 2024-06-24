@@ -7,10 +7,11 @@ import FriendsList from "./FriendsList";
 const Messages = () => {
   const [user, setUser, foundUser, setFoundUser] = useOutletContext();
 
+  // Make right side own component?
   return (
     <div className={styles.container}>
       <div className={styles.friends}>
-        <FriendsList user={user} />
+        <FriendsList user={user} setUser={setUser} />
         <form action="" method="post">
           <label htmlFor="friend_search"></label>
           <input
