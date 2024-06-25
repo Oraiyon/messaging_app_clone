@@ -123,10 +123,10 @@ export const post_remove_friend_request = expressAsyncHandler(async (req, res, n
     User.findById(req.params.receiver, { password: 0 }).exec()
   ]);
   const newFriendRequestsSender = sender.friendRequests.filter(
-    (request) => request === receiver.username
+    (request) => request.sender.username !== receiver.username
   );
   const newFriendRequestsReceiver = receiver.friendRequests.filter(
-    (request) => request === sender.username
+    (request) => request.receiver.username !== sender.username
   );
   sender.friendRequests = newFriendRequestsSender;
   receiver.friendRequests = newFriendRequestsReceiver;
@@ -142,10 +142,10 @@ export const post_accept_friend_request = [
       User.findById(req.params.receiver, { password: 0 }).exec()
     ]);
     const newFriendRequestsSender = sender.friendRequests.filter(
-      (request) => request === receiver.username
+      (request) => request.sender.username !== receiver.username
     );
     const newFriendRequestsReceiver = receiver.friendRequests.filter(
-      (request) => request === sender.username
+      (request) => request.receiver.username !== sender.username
     );
     sender.friendRequests = newFriendRequestsSender;
     receiver.friendRequests = newFriendRequestsReceiver;
@@ -163,11 +163,13 @@ export const post_accept_friend_request = [
 
 export const post_remove_friend = expressAsyncHandler(async (req, res, next) => {
   const [user, friendUser] = await Promise.all([
-    User.findById(req.params.id, { password: 0 }).exec(),
-    User.findById(req.params.friend, { password: 0 }).exec()
+    User.findById(req.params.id, { password: 0 }).populate("friends").exec(),
+    User.findById(req.params.friend, { password: 0 }).populate("friends").exec()
   ]);
-  const newUserFriends = user.friends.filter((friend) => friend === friendUser._id);
-  const newFriendUserFriends = friendUser.friends.filter((friend) => friend === user._id);
+  const newUserFriends = user.friends.filter((friend) => friend.username !== friendUser.username);
+  const newFriendUserFriends = friendUser.friends.filter(
+    (friend) => friend.username !== user.username
+  );
   user.friends = newUserFriends;
   friendUser.friends = newFriendUserFriends;
   await user.save();
