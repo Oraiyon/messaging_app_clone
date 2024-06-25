@@ -49,6 +49,8 @@ const Messages = (props) => {
         body: JSON.stringify({ message: text.current.value })
       });
       text.current.value = "";
+      // What to do with res.json(message) in server?
+      // Messages do not automatically display when sent
     } catch (error) {
       console.log(error);
     }
@@ -59,11 +61,11 @@ const Messages = (props) => {
       searchModal.style.display = "none";
       friendRequestModal.style.display = "none";
       return (
-        <>
+        <div className={styles.message}>
           {currentMessages.map((message) => (
             <p key={message._id}>{message.message}</p>
           ))}
-        </>
+        </div>
       );
     }
   };
@@ -81,9 +83,7 @@ const Messages = (props) => {
       />
       <div className={styles.right_section}>
         <div className={styles.chat + " chat_modal"}>
-          <div className={styles.message}>
-            <DisplayMessages />
-          </div>
+          <DisplayMessages />
           {currentChat ? (
             <form action="" method="post">
               <label htmlFor="message"></label>
