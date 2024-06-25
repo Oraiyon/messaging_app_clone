@@ -6,6 +6,7 @@
 .friend {
   display: flex;
   justify-content: space-between;
+  border: 1px solid red;
 }
 
 .friends {
@@ -14,4 +15,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.current_chat {
+  background-color: gray;
 }

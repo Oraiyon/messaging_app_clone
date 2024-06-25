@@ -13,7 +13,15 @@ const FriendsList = (props) => {
     <div className={styles.friends}>
       <div className={styles.friends_list}>
         {props.user.friends.map((friend) => (
-          <div key={friend._id + friend.username} className={styles.friend}>
+          <div
+            key={friend._id + friend.username}
+            className={
+              props.currentChat && props.currentChat._id === friend._id
+                ? styles.friend + " " + styles.current_chat
+                : styles.friend
+            }
+            onClick={() => props.setCurrentChat(friend)}
+          >
             <p>{friend.username}</p>
             <button onClick={() => removeFriend(friend)}>Remove Friend</button>
           </div>
