@@ -5,30 +5,27 @@ const Header = (props) => {
   // Change props.loggedIn to state?
   // Do you even need it?
 
-  const searchModal = document.querySelector(".search_modal");
-  const friendRequestModal = document.querySelector(".friend_requests");
-  const searchUser = document.querySelector("#searchUser");
-
+  // Second modal open conflicting
   const modalDisplaySetter = (modal) => {
+    props.setFoundUser(null);
     if (!modal.style.display || modal.style.display === "none") {
+      props.chatModal.style.display = "none";
       modal.style.display = "flex";
     } else {
+      props.chatModal.style.display = "flex";
       modal.style.display = "none";
     }
+    props.searchUser.value = "";
   };
 
   const displaySearch = () => {
-    searchUser.value = "";
-    props.setFoundUser(null);
-    friendRequestModal.style.display = "none";
-    modalDisplaySetter(searchModal);
+    props.friendRequestModal.style.display = "none";
+    modalDisplaySetter(props.searchModal);
   };
 
   const displayFriendRequests = () => {
-    searchUser.value = "";
-    props.setFoundUser(null);
-    searchModal.style.display = "none";
-    modalDisplaySetter(friendRequestModal);
+    props.searchModal.style.display = "none";
+    modalDisplaySetter(props.friendRequestModal);
   };
 
   return (

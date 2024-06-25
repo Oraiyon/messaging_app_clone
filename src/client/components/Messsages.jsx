@@ -5,12 +5,20 @@ import FriendRequestsModal from "./FriendRequestsModal";
 import FriendsList from "./FriendsList";
 import { useEffect, useRef, useState } from "react";
 
-const Messages = () => {
-  const [user, setUser, foundUser, setFoundUser] = useOutletContext();
-  // Make currentChat latest chat
-  const [currentChat, setCurrentChat] = useState(null);
-  // Make currentMessages messages with currentChat
-  const [currentMessages, setCurrentMessages] = useState(null);
+const Messages = (props) => {
+  const [
+    user,
+    setUser,
+    foundUser,
+    setFoundUser,
+    currentChat,
+    setCurrentChat,
+    currentMessages,
+    setCurrentMessages,
+    searchModal,
+    friendRequestModal,
+    chatModal
+  ] = useOutletContext();
 
   useEffect(() => {
     const getMessages = async () => {
@@ -48,6 +56,8 @@ const Messages = () => {
 
   const DisplayMessages = () => {
     if (currentMessages) {
+      searchModal.style.display = "none";
+      friendRequestModal.style.display = "none";
       return (
         <>
           {currentMessages.map((message) => (
@@ -65,9 +75,12 @@ const Messages = () => {
         setUser={setUser}
         currentChat={currentChat}
         setCurrentChat={setCurrentChat}
+        chatModal={chatModal}
+        searchModal={searchModal}
+        friendRequestModal={friendRequestModal}
       />
       <div className={styles.right_section}>
-        <div className={styles.chat}>
+        <div className={styles.chat + " chat_modal"}>
           <div className={styles.message}>
             <DisplayMessages />
           </div>

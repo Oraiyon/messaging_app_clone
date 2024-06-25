@@ -13,6 +13,13 @@ const FriendsList = (props) => {
     }
   };
 
+  const displayCurrentChat = (friend) => {
+    props.chatModal.style.display = "flex";
+    props.searchModal.style.display = "none";
+    props.friendRequestModal.style.display = "none";
+    props.setCurrentChat(friend);
+  };
+
   return (
     <div className={styles.friends}>
       <div className={styles.friends_list}>
@@ -24,7 +31,7 @@ const FriendsList = (props) => {
                 ? styles.friend + " " + styles.current_chat
                 : styles.friend
             }
-            onClick={() => props.setCurrentChat(friend)}
+            onClick={() => displayCurrentChat(friend)}
           >
             <p>{friend.username}</p>
             <button onClick={() => removeFriend(friend)}>Remove Friend</button>

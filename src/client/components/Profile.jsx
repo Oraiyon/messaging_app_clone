@@ -6,6 +6,16 @@ import { Outlet } from "react-router-dom";
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [foundUser, setFoundUser] = useState(null);
+  // Make currentChat latest chat
+  const [currentChat, setCurrentChat] = useState(null);
+  // Make currentMessages messages with currentChat
+  const [currentMessages, setCurrentMessages] = useState(null);
+
+  // Change to useRef()?
+  const searchModal = document.querySelector(".search_modal");
+  const friendRequestModal = document.querySelector(".friend_requests");
+  const searchUser = document.querySelector("#searchUser");
+  const chatModal = document.querySelector(".chat_modal");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,8 +37,30 @@ const Profile = () => {
 
   return (
     <>
-      <Header loggedIn={true} user={user} setFoundUser={setFoundUser} />
-      <Outlet context={[user, setUser, foundUser, setFoundUser]} />
+      <Header
+        loggedIn={true}
+        user={user}
+        setFoundUser={setFoundUser}
+        searchUser={searchUser}
+        friendRequestModal={friendRequestModal}
+        searchModal={searchModal}
+        chatModal={chatModal}
+      />
+      <Outlet
+        context={[
+          user,
+          setUser,
+          foundUser,
+          setFoundUser,
+          currentChat,
+          setCurrentChat,
+          currentMessages,
+          setCurrentMessages,
+          searchModal,
+          friendRequestModal,
+          chatModal
+        ]}
+      />
     </>
   );
 };
