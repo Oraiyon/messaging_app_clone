@@ -3,7 +3,7 @@ import styles from "../stylesheets/messages.module.css";
 import SearchUserModal from "./SearchUserModal";
 import FriendRequestsModal from "./FriendRequestsModal";
 import FriendsList from "./FriendsList";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Messages = () => {
   const [user, setUser, foundUser, setFoundUser] = useOutletContext();
@@ -11,6 +11,21 @@ const Messages = () => {
   const [currentChat, setCurrentChat] = useState(null);
   // Make currentMessages messages with currentChat
   const [currentMessages, setCurrentMessages] = useState(null);
+
+  useEffect(() => {
+    const getMessages = async () => {
+      try {
+        if (currentChat) {
+          const messagesFetch = await fetch(`/api/message/${user._id}/${currentChat._id}`);
+          const res = await messagesFetch.json();
+          setCurrentMessages(res);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMessages();
+  }, [currentChat]);
 
   const text = useRef(null);
 
@@ -31,13 +46,15 @@ const Messages = () => {
     }
   };
 
-  const getMessages = async () => {
-    try {
-      const messagesFetch = await fetch(`/api/message/${user._id}/${currentChat._id}`);
-      const res = await messagesFetch.json();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+  const DisplayMessages = () => {
+    if (currentMessages) {
+      return (
+        <>
+          {currentMessages.map((message) => (
+            <p key={message._id}>{message.message}</p>
+          ))}
+        </>
+      );
     }
   };
 
@@ -51,14 +68,18 @@ const Messages = () => {
       />
       <div className={styles.right_section}>
         <div className={styles.chat}>
-          <div className={styles.message} onClick={getMessages}>
-            {currentChat ? currentChat.username : ""}
+          <div className={styles.message}>
+            <DisplayMessages />
           </div>
-          <form action="" method="post" className="chat_inputs">
-            <label htmlFor="message"></label>
-            <input type="text" name="message" className={styles.text} id="message" ref={text} />
-            <button onClick={sendMessage}>Send</button>
-          </form>
+          {currentChat ? (
+            <form action="" method="post" className="chat_inputs">
+              <label htmlFor="message"></label>
+              <input type="text" name="message" className={styles.text} id="message" ref={text} />
+              <button onClick={sendMessage}>Send</button>
+            </form>
+          ) : (
+            ""
+          )}
         </div>
         <SearchUserModal
           user={user}
