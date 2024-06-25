@@ -151,7 +151,7 @@ const SearchUserModal = (props) => {
   };
 
   return (
-    <form action="" className={styles.modal_form + " modal"}>
+    <form action="" className={styles.modal_form + " search_modal"}>
       <h3>Search User</h3>
       <label htmlFor="searchUser"></label>
       <input
