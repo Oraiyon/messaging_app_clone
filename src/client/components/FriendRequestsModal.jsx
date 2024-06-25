@@ -2,21 +2,29 @@ import styles from "../stylesheets/friendRequestsModal.module.css";
 
 const FriendRequestsModal = (props) => {
   const removeFriendRequest = async (request) => {
-    const fetchUser = await fetch(
-      `/api/friendrequest/remove/${props.user._id}/${request.receiver.id === props.user._id ? request.sender.id : request.receiver.id}`,
-      { method: "POST" }
-    );
-    const res = await fetchUser.json();
-    props.setUser(res);
+    try {
+      const fetchUser = await fetch(
+        `/api/friendrequest/remove/${props.user._id}/${request.receiver.id === props.user._id ? request.sender.id : request.receiver.id}`,
+        { method: "POST" }
+      );
+      const res = await fetchUser.json();
+      props.setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const acceptFriendRequest = async (request) => {
-    const fetchUser = await fetch(
-      `/api/friendrequest/accept/${props.user._id}/${request.receiver.id === props.user._id ? request.sender.id : request.receiver.id}`,
-      { method: "POST" }
-    );
-    const res = await fetchUser.json();
-    props.setUser(res);
+    try {
+      const fetchUser = await fetch(
+        `/api/friendrequest/accept/${props.user._id}/${request.receiver.id === props.user._id ? request.sender.id : request.receiver.id}`,
+        { method: "POST" }
+      );
+      const res = await fetchUser.json();
+      props.setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Separate friend requests for sent or received?

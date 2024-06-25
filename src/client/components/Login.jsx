@@ -15,21 +15,21 @@ const Login = () => {
 
   // Find way to say if user is not found in database
   const validateLoginInputs = async (e) => {
-    e.preventDefault();
-    // Unnecessary checks?
-    if (!username && !password) {
-      setValidUsername(false);
-      setValidPassword(false);
-      usernameWarning.current.style.display = "block";
-      passwordWarning.current.style.display = "block";
-    } else if (!username) {
-      setValidUsername(false);
-      usernameWarning.current.style.display = "block";
-    } else if (!password) {
-      setValidPassword(false);
-      passwordWarning.current.style.display = "block";
-    } else {
-      try {
+    try {
+      e.preventDefault();
+      // Unnecessary checks?
+      if (!username && !password) {
+        setValidUsername(false);
+        setValidPassword(false);
+        usernameWarning.current.style.display = "block";
+        passwordWarning.current.style.display = "block";
+      } else if (!username) {
+        setValidUsername(false);
+        usernameWarning.current.style.display = "block";
+      } else if (!password) {
+        setValidPassword(false);
+        passwordWarning.current.style.display = "block";
+      } else {
         const fetchUser = await fetch("/login", {
           method: "POST",
           headers: {
@@ -48,9 +48,9 @@ const Login = () => {
         }
         // fetch doesn't allow redirects from server
         window.location.href = `/${res._id}/profile/messages`;
-      } catch (error) {
-        console.log(error);
       }
+    } catch (error) {
+      console.log(error);
     }
   };
 

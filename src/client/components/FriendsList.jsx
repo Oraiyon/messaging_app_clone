@@ -2,11 +2,15 @@ import styles from "../stylesheets/friendsList.module.css";
 
 const FriendsList = (props) => {
   const removeFriend = async (friend) => {
-    const fetchUser = await fetch(`/api/friend/${props.user._id}/${friend._id}`, {
-      method: "POST"
-    });
-    const res = await fetchUser.json();
-    props.setUser(res);
+    try {
+      const fetchUser = await fetch(`/api/friend/${props.user._id}/${friend._id}`, {
+        method: "POST"
+      });
+      const res = await fetchUser.json();
+      props.setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

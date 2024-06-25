@@ -2,58 +2,78 @@ import styles from "../stylesheets/searchUserModal.module.css";
 
 const SearchUserModal = (props) => {
   const searchUserProfiles = async (e) => {
-    if (!e.target.value || e.target.value === props.user.username) {
-      props.setFoundUser(null);
-      return;
-    }
-    const searchUser = await fetch(`/api/search/${e.target.value}`);
-    const res = await searchUser.json();
-    if (res) {
-      props.setFoundUser(res);
-    } else {
-      props.setFoundUser(null);
+    try {
+      if (!e.target.value || e.target.value === props.user.username) {
+        props.setFoundUser(null);
+        return;
+      }
+      const searchUser = await fetch(`/api/search/${e.target.value}`);
+      const res = await searchUser.json();
+      if (res) {
+        props.setFoundUser(res);
+      } else {
+        props.setFoundUser(null);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const sendFriendRequest = async (e) => {
-    e.preventDefault();
-    const fetchFriendRequest = await fetch(
-      `/api/friendrequest/send/${props.user._id}/${props.foundUser._id}`,
-      {
-        method: "POST"
-      }
-    );
-    const res = await fetchFriendRequest.json();
-    props.setUser(res);
+    try {
+      e.preventDefault();
+      const fetchFriendRequest = await fetch(
+        `/api/friendrequest/send/${props.user._id}/${props.foundUser._id}`,
+        {
+          method: "POST"
+        }
+      );
+      const res = await fetchFriendRequest.json();
+      props.setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const removeFriendRequest = async (e) => {
-    e.preventDefault();
-    const fetchUser = await fetch(
-      `/api/friendrequest/remove/${props.user._id}/${props.foundUser._id}`,
-      { method: "POST" }
-    );
-    const res = await fetchUser.json();
-    props.setUser(res);
+    try {
+      e.preventDefault();
+      const fetchUser = await fetch(
+        `/api/friendrequest/remove/${props.user._id}/${props.foundUser._id}`,
+        { method: "POST" }
+      );
+      const res = await fetchUser.json();
+      props.setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const acceptFriendRequest = async (e) => {
-    e.preventDefault();
-    const fetchUser = await fetch(
-      `/api/friendrequest/accept/${props.user._id}/${props.foundUser._id}`,
-      { method: "POST" }
-    );
-    const res = await fetchUser.json();
-    props.setUser(res);
+    try {
+      e.preventDefault();
+      const fetchUser = await fetch(
+        `/api/friendrequest/accept/${props.user._id}/${props.foundUser._id}`,
+        { method: "POST" }
+      );
+      const res = await fetchUser.json();
+      props.setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const removeFriend = async (e, friend) => {
-    e.preventDefault();
-    const fetchUser = await fetch(`/api/friend/${props.user._id}/${friend._id}`, {
-      method: "POST"
-    });
-    const res = await fetchUser.json();
-    props.setUser(res);
+    try {
+      e.preventDefault();
+      const fetchUser = await fetch(`/api/friend/${props.user._id}/${friend._id}`, {
+        method: "POST"
+      });
+      const res = await fetchUser.json();
+      props.setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const FriendRequestButton = () => {
