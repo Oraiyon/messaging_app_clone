@@ -9,6 +9,7 @@ import post_signup, {
   post_accept_friend_request,
   post_remove_friend
 } from "./controllers/userController.js";
+import post_send_message from "./controllers/messageController.js";
 
 const router = express.Router();
 
@@ -39,5 +40,8 @@ router.post("/api/friendrequest/accept/:sender/:receiver", post_accept_friend_re
 
 // Remove friend
 router.post("/api/friend/:id/:friend", post_remove_friend);
+
+// Send message
+router.post("/api/message/:sender/:receiver", post_send_message);
 
 export default router;

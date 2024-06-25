@@ -1,9 +1,11 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
+
+const Schema = mongoose.Schema;
 
 const messageSchema = Schema({
   message: { type: String, required: true },
-  sender: { type: Schema.Types.ObjectId, ref: "user", required: true },
-  receiver: { type: Schema.Types.ObjectId, ref: "user", required: true },
+  sender_id: { type: Schema.Types.ObjectId, ref: "users", required: true },
+  receiver_id: { type: Schema.Types.ObjectId, ref: "users", required: true },
   date_sent: { type: Date, default: Date.now }
 });
 
