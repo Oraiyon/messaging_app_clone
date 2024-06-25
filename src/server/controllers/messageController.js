@@ -11,7 +11,6 @@ const post_send_message = [
       sender: req.params.sender,
       receiver: req.params.receiver
     });
-    console.log(message);
     if (!errors.isEmpty()) {
       // redirect?
       return;
@@ -20,5 +19,15 @@ const post_send_message = [
     res.json(message);
   })
 ];
+
+export const get_messages = expressAsyncHandler(async (req, res, next) => {
+  const messages = await Message.find({
+    sender: req.params.sender || req.params.receiver,
+    receiver: req.params.receiver || req.params.sender
+  })
+    .sort({ date_sent: 1 })
+    .exec();
+  res.json(messages);
+});
 
 export default post_send_message;
