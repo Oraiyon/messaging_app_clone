@@ -29,8 +29,13 @@ form {
 }
 
 .user_message {
+  text-align: end;
   align-self: flex-end;
+  width: 50%;
+  border: 1px solid orange;
 }
 
 .friend_message {
+  width: 50%;
+  border: 1px solid green;
 }
