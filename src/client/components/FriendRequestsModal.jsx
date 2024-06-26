@@ -32,25 +32,27 @@ const FriendRequestsModal = (props) => {
     <div className={styles.friend_request_modal + " friend_requests"}>
       <h3>Friend Requests</h3>
       {props.user.friendRequests.length ? (
-        props.user.friendRequests.map((request) => (
-          <div key={request.sender.id + request.receiver.id} className={styles.friend_request}>
-            <p>
-              {request.receiver.username === props.user.username
-                ? request.sender.username
-                : request.receiver.username}
-            </p>
-            <div className={styles.friend_request_inputs}>
-              {request.receiver.username === props.user.username ? (
-                <button onClick={() => acceptFriendRequest(request)}>Accept</button>
-              ) : (
-                ""
-              )}
-              <button onClick={() => removeFriendRequest(request)}>
-                {request.receiver.username === props.user.username ? "Decline" : "Unsend"}
-              </button>
+        <div className={styles.friend_requests_info}>
+          {props.user.friendRequests.map((request) => (
+            <div key={request.sender.id + request.receiver.id} className={styles.friend_request}>
+              <p>
+                {request.receiver.username === props.user.username
+                  ? request.sender.username
+                  : request.receiver.username}
+              </p>
+              <div className={styles.friend_request_inputs}>
+                {request.receiver.username === props.user.username ? (
+                  <button onClick={() => acceptFriendRequest(request)}>Accept</button>
+                ) : (
+                  ""
+                )}
+                <button onClick={() => removeFriendRequest(request)}>
+                  {request.receiver.username === props.user.username ? "Decline" : "Unsend"}
+                </button>
+              </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       ) : (
         <p>No friend requests...</p>
       )}

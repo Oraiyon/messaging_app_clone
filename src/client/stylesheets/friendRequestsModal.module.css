@@ -18,3 +18,7 @@
   display: flex;
   gap: 4px;
 }
+
+.friend_requests_info {
+  overflow-y: scroll;
+}
