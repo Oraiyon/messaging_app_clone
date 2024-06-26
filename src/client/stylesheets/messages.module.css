@@ -10,7 +10,6 @@
 }
 
 form {
-  height: 100%;
   display: flex;
   align-items: flex-end;
 }
@@ -26,6 +25,7 @@ form {
   border: 1px solid purple;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
 
 .user_message {
