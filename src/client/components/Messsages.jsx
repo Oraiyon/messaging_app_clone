@@ -59,9 +59,6 @@ const Messages = (props) => {
 
   const DisplayMessages = () => {
     if (currentMessages) {
-      searchModal.style.display = "none";
-      friendRequestModal.style.display = "none";
-      // message.date_sent_formatted not
       return (
         <div className={styles.messages}>
           {currentMessages.map((message) => (

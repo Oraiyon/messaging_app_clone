@@ -2,30 +2,28 @@ import { Link } from "react-router-dom";
 import styles from "../stylesheets/header.module.css";
 
 const Header = (props) => {
-  // Change props.loggedIn to state?
-  // Do you even need it?
-
-  // Second modal open conflicting
-  const modalDisplaySetter = (modal) => {
-    props.setFoundUser(null);
-    if (!modal.style.display || modal.style.display === "none") {
-      props.chatModal.style.display = "none";
-      modal.style.display = "flex";
-    } else {
-      props.chatModal.style.display = "flex";
-      modal.style.display = "none";
-    }
-    props.searchUser.value = "";
-  };
-
   const displaySearch = () => {
+    props.setFoundUser(null);
+    props.searchUser.value = "";
     props.friendRequestModal.style.display = "none";
-    modalDisplaySetter(props.searchModal);
+    if (props.searchModal.style.display === "flex") {
+      props.searchModal.style.display = "none";
+      props.chatModal.style.display = "flex";
+    } else {
+      props.searchModal.style.display = "flex";
+      props.chatModal.style.display = "none";
+    }
   };
 
   const displayFriendRequests = () => {
     props.searchModal.style.display = "none";
-    modalDisplaySetter(props.friendRequestModal);
+    if (props.friendRequestModal.style.display === "flex") {
+      props.friendRequestModal.style.display = "none";
+      props.chatModal.style.display = "flex";
+    } else {
+      props.friendRequestModal.style.display = "flex";
+      props.chatModal.style.display = "none";
+    }
   };
 
   return (

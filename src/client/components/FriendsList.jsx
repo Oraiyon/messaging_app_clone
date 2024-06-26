@@ -14,9 +14,9 @@ const FriendsList = (props) => {
   };
 
   const displayCurrentChat = (friend) => {
-    props.chatModal.style.display = "flex";
     props.searchModal.style.display = "none";
     props.friendRequestModal.style.display = "none";
+    props.chatModal.style.display = "flex";
     props.setCurrentChat(friend);
   };
 
