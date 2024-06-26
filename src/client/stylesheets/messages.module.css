@@ -22,6 +22,15 @@ form {
   justify-content: space-between;
 }
 
-.message {
+.messages {
   border: 1px solid purple;
+  display: flex;
+  flex-direction: column;
+}
+
+.user_message {
+  align-self: flex-end;
+}
+
+.friend_message {
 }

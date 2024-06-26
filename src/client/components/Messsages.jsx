@@ -62,9 +62,14 @@ const Messages = (props) => {
       searchModal.style.display = "none";
       friendRequestModal.style.display = "none";
       return (
-        <div className={styles.message}>
+        <div className={styles.messages}>
           {currentMessages.map((message) => (
-            <p key={message._id}>{message.message}</p>
+            <p
+              key={message._id}
+              className={message.sender === user._id ? styles.user_message : styles.friend_message}
+            >
+              {message.message}
+            </p>
           ))}
         </div>
       );
