@@ -2,28 +2,26 @@ import { Link } from "react-router-dom";
 import styles from "../stylesheets/header.module.css";
 
 const Header = (props) => {
-  const displaySearch = () => {
-    props.setFoundUser(null);
-    props.searchUser.value = "";
-    props.friendRequestModal.style.display = "none";
-    if (props.searchModal.style.display === "flex") {
-      props.searchModal.style.display = "none";
+  const displayModalHelper = (modal) => {
+    if (modal.style.display === "flex") {
+      modal.style.display = "none";
       props.chatModal.style.display = "flex";
     } else {
-      props.searchModal.style.display = "flex";
+      modal.style.display = "flex";
       props.chatModal.style.display = "none";
     }
   };
 
+  const displaySearch = () => {
+    props.setFoundUser(null);
+    props.searchUser.value = "";
+    props.friendRequestModal.style.display = "none";
+    displayModalHelper(props.searchModal);
+  };
+
   const displayFriendRequests = () => {
     props.searchModal.style.display = "none";
-    if (props.friendRequestModal.style.display === "flex") {
-      props.friendRequestModal.style.display = "none";
-      props.chatModal.style.display = "flex";
-    } else {
-      props.friendRequestModal.style.display = "flex";
-      props.chatModal.style.display = "none";
-    }
+    displayModalHelper(props.friendRequestModal);
   };
 
   return (
