@@ -24,8 +24,10 @@ const post_send_message = [
 
 export const get_messages = expressAsyncHandler(async (req, res, next) => {
   const messages = await Message.find({
-    sender: req.params.sender || req.params.receiver,
-    receiver: req.params.receiver || req.params.sender
+    $or: [
+      { sender: req.params.sender, receiver: req.params.receiver },
+      { sender: req.params.receiver, receiver: req.params.sender }
+    ]
   })
     .sort({ date_sent: 1 })
     .exec();
