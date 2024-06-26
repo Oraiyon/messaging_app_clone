@@ -43,14 +43,15 @@ const Messages = (props) => {
       if (!text.current.value.length) {
         return;
       }
-      await fetch(`/api/message/${user._id}/${currentChat._id}`, {
+      const messageFetch = await fetch(`/api/message/${user._id}/${currentChat._id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text.current.value })
       });
       text.current.value = "";
-      // What to do with res.json(message) in server?
-      // Messages do not automatically display when sent
+      // Returns receiver
+      const res = await messageFetch.json();
+      setCurrentChat(res);
     } catch (error) {
       console.log(error);
     }

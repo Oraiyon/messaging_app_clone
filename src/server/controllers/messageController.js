@@ -1,10 +1,12 @@
 import expressAsyncHandler from "express-async-handler";
 import { body, validationResult } from "express-validator";
 import Message from "../models/messageModel.js";
+import User from "../models/userModel.js";
 
 const post_send_message = [
   body("message", "Invalid message.").trim().isLength({ min: 1 }).escape(),
   expressAsyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.params.receiver).exec();
     const errors = validationResult(req);
     const message = new Message({
       message: req.body.message,
@@ -16,7 +18,7 @@ const post_send_message = [
       return;
     }
     await message.save();
-    res.json(message);
+    res.json(user);
   })
 ];
 
