@@ -34,10 +34,9 @@ const Header = (props) => {
         <div>
           <Link to={`/${props.user.username}/profile/messages`}>Messages</Link>
           <Link>Profile</Link>
-          <Link>Settings</Link>
-          <button onClick={displaySearch}>Search user</button>
         </div>
         <div>
+          <button onClick={displaySearch}>Search user</button>
           <button onClick={displayFriendRequests}>Friend Requests</button>
           <button>
             <a href="/logout">Logout</a>
