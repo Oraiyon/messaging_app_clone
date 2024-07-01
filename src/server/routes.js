@@ -26,7 +26,7 @@ router.post("/:id/profile", post_login);
 // Get user's profile information
 router.get("/api/:id/profile/messages", get_profile);
 
-// Search other user's info for becoming friends
+// Search other user's info
 router.get("/api/search/:username", get_search_profile);
 
 // Send friend requests
