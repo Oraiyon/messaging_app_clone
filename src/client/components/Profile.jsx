@@ -21,8 +21,9 @@ const Profile = () => {
     const fetchUser = async () => {
       try {
         // /:id/profile/messages
-        const res = await fetch(`/api${window.location.pathname}`);
-        const data = await res.json();
+        const fetchUser = await fetch(`/api${window.location.pathname}`);
+        const data = await fetchUser.json();
+        console.log(data);
         setUser(data);
         setCurrentChat(data.friends[0]);
       } catch (err) {
