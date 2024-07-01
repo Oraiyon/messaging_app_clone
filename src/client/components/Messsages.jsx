@@ -26,8 +26,6 @@ const Messages = (props) => {
         if (currentChat) {
           const messagesFetch = await fetch(`/api/message/${user._id}/${currentChat._id}`);
           const res = await messagesFetch.json();
-          //
-          console.log(res);
           setCurrentMessages(res);
         }
       } catch (error) {
