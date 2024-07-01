@@ -23,7 +23,6 @@ const Profile = () => {
         // /:id/profile/messages
         const fetchUser = await fetch(`/api${window.location.pathname}`);
         const data = await fetchUser.json();
-        console.log(data);
         setUser(data);
         setCurrentChat(data.friends[0]);
       } catch (err) {
