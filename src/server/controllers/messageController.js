@@ -18,13 +18,16 @@ const post_send_message = [
       // redirect?
       return;
     }
-    // Causes circular reference
     if (sender.friends[0].username !== receiver.username) {
       const newSendersFriends = sender.friends.filter(
         (friend) => friend.username !== receiver.username
       );
       newSendersFriends.unshift(receiver);
-      sender.friends = newSendersFriends;
+      const newSendersFriendsIds = [];
+      for (const friend of newSendersFriends) {
+        newSendersFriendsIds.push(friend._id);
+      }
+      sender.friends = newSendersFriendsIds;
       await sender.save();
     }
     if (receiver.friends[0].username !== sender.username) {
@@ -32,12 +35,21 @@ const post_send_message = [
         (friend) => friend.username !== sender.username
       );
       newReceiversFriends.unshift(sender);
-      receiver.friends = newReceiversFriends;
+      const newReceiversFriendsIds = [];
+      for (const friend of newReceiversFriends) {
+        newReceiversFriendsIds.push(friend._id);
+      }
+      sender.friends = newReceiversFriendsIds;
       await receiver.save();
     }
     await message.save();
-    // // Sends sender for setUser() & receiver for setCurrentChat()
-    // res.json({ sender, receiver });
+    next();
+  }),
+  expressAsyncHandler(async (req, res, next) => {
+    const sender = await User.findById(req.params.sender).populate("friends").exec();
+    const receiver = await User.findById(req.params.receiver).populate("friends").exec();
+    // Sends sender for setUser() & receiver for setCurrentChat()
+    res.json({ sender, receiver });
   })
 ];
 
