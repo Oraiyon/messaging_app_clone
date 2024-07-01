@@ -10,6 +10,4 @@ const UserSchema = new Schema({
   friendRequests: { type: Array }
 });
 
-// Create virtual url for redirecting to profile?
-
 export default mongoose.model("users", UserSchema);

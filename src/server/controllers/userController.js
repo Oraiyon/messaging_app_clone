@@ -98,6 +98,7 @@ export const post_send_friend_request = expressAsyncHandler(async (req, res, nex
     }
   }
   // populate()?
+  // Remove username?
   sender.friendRequests = [
     ...sender.friendRequests,
     {

@@ -25,7 +25,7 @@ const FriendsList = (props) => {
       <div className={styles.friends_list}>
         {props.user.friends.map((friend) => (
           <div
-            key={friend._id + friend.username}
+            key={friend._id}
             className={
               props.currentChat && props.currentChat._id === friend._id
                 ? styles.friend + " " + styles.current_chat

@@ -30,6 +30,7 @@ const Login = () => {
         setValidPassword(false);
         passwordWarning.current.style.display = "block";
       } else {
+        // Check if already logged in
         const fetchUser = await fetch("/login", {
           method: "POST",
           headers: {

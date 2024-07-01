@@ -26,6 +26,8 @@ const Messages = (props) => {
         if (currentChat) {
           const messagesFetch = await fetch(`/api/message/${user._id}/${currentChat._id}`);
           const res = await messagesFetch.json();
+          //
+          console.log(res);
           setCurrentMessages(res);
         }
       } catch (error) {
@@ -49,9 +51,10 @@ const Messages = (props) => {
         body: JSON.stringify({ message: text.current.value })
       });
       text.current.value = "";
-      // Returns receiver
+      // Returns sender & receiver
       const res = await messageFetch.json();
-      setCurrentChat(res);
+      setUser(res.sender);
+      setCurrentChat(res.receiver);
     } catch (error) {
       console.log(error);
     }
