@@ -39,7 +39,7 @@ const FriendsList = (props) => {
           </div>
         ))}
       </div>
-      <SearchFriend />
+      <SearchFriend user={props.user} setCurrentChat={props.setCurrentChat} />
     </div>
   );
 };
