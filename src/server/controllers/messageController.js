@@ -6,7 +6,8 @@ import User from "../models/userModel.js";
 const post_send_message = [
   body("message", "Invalid message.").trim().isLength({ min: 1 }).escape(),
   expressAsyncHandler(async (req, res, next) => {
-    const user = await User.findById(req.params.receiver).exec();
+    const sender = await User.findById(req.params.sender).populate("friends").exec();
+    const receiver = await User.findById(req.params.receiver).exec();
     const errors = validationResult(req);
     const message = new Message({
       message: req.body.message,
@@ -17,8 +18,17 @@ const post_send_message = [
       // redirect?
       return;
     }
+    // If (sender.friends[0].username !== receiver.username) ?
+    // Do same for receiver
+    const newFriendsArray = sender.friends.filter(
+      (friend) => friend.username !== receiver.username
+    );
+    newFriendsArray.unshift(receiver);
+    sender.friends = newFriendsArray;
+    await sender.save();
     await message.save();
-    res.json(user);
+    // Sends receiver for setCurrentChat()
+    res.json({ sender, receiver });
   })
 ];
 

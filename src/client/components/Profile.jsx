@@ -24,6 +24,7 @@ const Profile = () => {
         const res = await fetch(`/api${window.location.pathname}`);
         const data = await res.json();
         setUser(data);
+        setCurrentChat(data.friends[0]);
       } catch (err) {
         console.log(err);
       }
