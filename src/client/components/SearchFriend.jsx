@@ -27,6 +27,7 @@ const SearchFriend = (props) => {
         className={styles.friend_search}
         id="friend_search"
         onChange={findFriend}
+        placeholder="Find friend"
       />
     </form>
   );

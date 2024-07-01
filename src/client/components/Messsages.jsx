@@ -93,7 +93,14 @@ const Messages = (props) => {
           {currentChat ? (
             <form action="" method="post">
               <label htmlFor="message"></label>
-              <input type="text" name="message" className={styles.text} id="message" ref={text} />
+              <input
+                type="text"
+                name="message"
+                className={styles.text}
+                id="message"
+                ref={text}
+                placeholder="Send a message"
+              />
               <button onClick={sendMessage}>Send</button>
             </form>
           ) : (
