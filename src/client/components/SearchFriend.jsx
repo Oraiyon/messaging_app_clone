@@ -11,7 +11,6 @@ const SearchFriend = (props) => {
           return;
         } else {
           props.setCurrentChat(props.user.friends[0]);
-          return;
         }
       }
     } else {
