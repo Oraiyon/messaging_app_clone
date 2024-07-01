@@ -7,7 +7,7 @@ const post_send_message = [
   body("message", "Invalid message.").trim().isLength({ min: 1 }).escape(),
   expressAsyncHandler(async (req, res, next) => {
     const sender = await User.findById(req.params.sender).populate("friends").exec();
-    const receiver = await User.findById(req.params.receiver).exec();
+    const receiver = await User.findById(req.params.receiver).populate("friends").exec();
     const errors = validationResult(req);
     const message = new Message({
       message: req.body.message,
@@ -18,17 +18,26 @@ const post_send_message = [
       // redirect?
       return;
     }
-    // If (sender.friends[0].username !== receiver.username) ?
-    // Do same for receiver
-    const newFriendsArray = sender.friends.filter(
-      (friend) => friend.username !== receiver.username
-    );
-    newFriendsArray.unshift(receiver);
-    sender.friends = newFriendsArray;
-    await sender.save();
+    // Causes circular reference
+    if (sender.friends[0].username !== receiver.username) {
+      const newSendersFriends = sender.friends.filter(
+        (friend) => friend.username !== receiver.username
+      );
+      newSendersFriends.unshift(receiver);
+      sender.friends = newSendersFriends;
+      await sender.save();
+    }
+    if (receiver.friends[0].username !== sender.username) {
+      const newReceiversFriends = receiver.friends.filter(
+        (friend) => friend.username !== sender.username
+      );
+      newReceiversFriends.unshift(sender);
+      receiver.friends = newReceiversFriends;
+      await receiver.save();
+    }
     await message.save();
-    // Sends receiver for setCurrentChat()
-    res.json({ sender, receiver });
+    // // Sends sender for setUser() & receiver for setCurrentChat()
+    // res.json({ sender, receiver });
   })
 ];
 
