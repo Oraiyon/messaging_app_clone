@@ -5,8 +5,7 @@
 
 .right_section {
   width: 100%;
-  border: 1px solid blue;
-  /* position: relative; */
+  background-color: gray;
 }
 
 form {
@@ -22,20 +21,18 @@ form {
 }
 
 .messages {
-  border: 1px solid purple;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  height: 100%;
 }
 
 .user_message {
   text-align: end;
   align-self: flex-end;
   width: 50%;
-  border: 1px solid orange;
 }
 
 .friend_message {
   width: 50%;
-  border: 1px solid green;
 }
