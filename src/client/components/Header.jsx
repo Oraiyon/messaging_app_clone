@@ -29,7 +29,7 @@ const Header = (props) => {
       <div className={styles.account_links}>
         <div>
           <Link to={`/${props.user.username}/profile/messages`}>Messages</Link>
-          <Link>Profile</Link>
+          <Link>Account</Link>
         </div>
         <div>
           <button onClick={displaySearch}>Search user</button>
