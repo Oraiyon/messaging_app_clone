@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   // ref = model
   friends: [{ type: Schema.Types.ObjectId, ref: "users" }],
   friendRequests: { type: Array }
+  // Add profile image
 });
 
 export default mongoose.model("users", UserSchema);
